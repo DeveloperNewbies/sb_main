@@ -6,16 +6,28 @@
  * Time: 18:55
  */
 
-
-require_once($rota."db/db_con.php");
-require_once($rota."sec/sql_inj.php");
-
-  class Query extends database
+  class Query
   {
 
-      function __construct ($db_name)
+      protected $servername = "localhost";
+      protected $username = "root";
+      protected $password = "";
+      protected $dbname = "";
+      public $conn;
+
+      function __construct ($dbname)
       {
-          parent::__construct ( $db_name );
+          $this->dbname = $dbname ;
+
+          try {
+              $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+              // set the PDO error mode to exception
+              $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $this->conn-> exec("SET CHARACTER SET utf8");
+
+          } catch (PDOException $e) {
+              echo "Connection failed: " . $e->getMessage();
+          }
       }
 
       public  function all_doctor(){
@@ -38,7 +50,7 @@ require_once($rota."sec/sql_inj.php");
 
       public  function all_adres($parameters = 0){
           try {
-              $status = $this->conn->prepare ( 'select * from adres where adres_status ='.$parameters );
+              $status = $this->conn->prepare ( 'select * from adres where adres_select ='.$parameters );
               $status->execute ();
 
               $result = $status->setFetchMode ( PDO::FETCH_ASSOC );
@@ -66,10 +78,10 @@ require_once($rota."sec/sql_inj.php");
       }
 
 
-      public function create_adres ($id , $adres , $adres_select , $adres_status)
+      public function create_adres ($id , $adres , $adres_select )
       {
           try {
-              $sorgu = $this->conn->exec ( "INSERT INTO adres (id,address,adres_select,adres_status) VALUES ('$id','$adres','$adres_select','$adres_status')" );
+              $sorgu = $this->conn->exec ( "INSERT INTO adres (id,address,adres_select) VALUES ('$id','$adres','$adres_select')" );
               return true;
           } catch (PDOException $e) {
               return false;
@@ -140,13 +152,17 @@ require_once($rota."sec/sql_inj.php");
                   $data[0] = $key["id"];
                   $data[1] = $key["address"];
                   $data[2] = $key["adres_select"];
-                  $data[3] = $key["adres_status"];
               }
           } catch (PDOException $err) {
               return false;
           }
 
           return $data;
+      }
+
+      function __destruct()
+      {
+          $this->conn = null;
       }
 
   }
