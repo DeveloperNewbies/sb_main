@@ -26,10 +26,6 @@ class PDF extends FPDF
 		$this->SetX(170);
 		$this->Cell(30,7,$date,0,1,'C',true);
 
-		$this->SetY (12);
-		$this->SetX(170);
-		$this->Cell(30,7,$time,0,1,'C',true);
-
 		$this->SetFont('Arial','',17);
 		$w=$this->GetStringWidth($title)+6;
 		$this->SetX((210-$w)/2);

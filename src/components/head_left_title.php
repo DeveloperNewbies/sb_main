@@ -7,6 +7,6 @@
  */
 ?>
 <div class="user-name">
-    <a href="index.php"><h3 style="color:white;">Doktorlar</h3></a>
+    <a href="index.php"><h4 style="color:white;">Müraacat Eden Hekim Sıralaması</h4></a>
     <!-- <span><a href="#"></a></span> -->
 </div>
