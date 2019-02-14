@@ -59,7 +59,7 @@ if(isset($_GET["url"])) {
  ?>
 <?php require_once ($rota . "src/components/head.php");?>
 <body>
-<div class="container" style="margin-top: 20px ; margin-bottom: 20px;">
+<div >
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <div class="mail-box">
         <?php   require_once ($rota."src/components/left_container.php") ; ?>
