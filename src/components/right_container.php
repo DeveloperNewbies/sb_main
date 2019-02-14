@@ -9,8 +9,8 @@
            <?php }else{ ?>
                <h5>Adres seçimi yapmalısınız</h5>
            <?php }?>
-           <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
-           <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+           <a href="<?=$rota."demo_dr/../report/report.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+           <a href="<?=$rota."demo_dr/../report/report.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
        </div>
     <?php }else{ ?>
     <div class="inbox-head">
@@ -22,7 +22,7 @@
         <?php }else{ ?>
             <h5>Adres seçimi yapmalısınız</h5>
         <?php }?>
-        <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+        <a href="<?=$rota."demo_dr/../report/report.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
     </div>
     <?php } ?>
     <div class="inbox-body">
