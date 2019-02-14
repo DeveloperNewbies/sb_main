@@ -110,6 +110,7 @@
             line-height: 45px;
             padding: 0 20px;
             width: 100%;
+            font-size:medium;
         }
         ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
             background: none repeat scroll 0 0 #d5d7de;
@@ -154,7 +155,7 @@
         .inbox-head {
             background: none repeat scroll 0 0 #41cac0;
             border-radius: 0 4px 0 0;
-            color: #fff;
+            
             min-height: 80px;
             padding: 20px;
         }
@@ -182,7 +183,8 @@
             padding: 0 20px;
         }
         .table-inbox {
-            border: 1px solid #d3d3d3;
+            border: 2px solid dodgerblue;
+            
             margin-bottom: 0;
         }
         .table-inbox tr td {

@@ -1,3 +1,9 @@
+<style>
+
+body{
+  font-size:20px;
+}
+</style>
 <aside class="lg-side">
    <?php if(isset($doctor_val)){?>
        <div class="inbox-head">
@@ -11,6 +17,49 @@
            <?php }?>
            <a href="<?=$rota."demo_dr/../report/report.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
            <a href="<?=$rota."demo_dr/../report/report.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+       <div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table  ">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Ad Soyad</th>
+                                <th scope="col">T.C</th>
+                                <th scope="col">Hizmet Puanı </th>
+                              <?php if(isset($old_adres[1])){ ?>
+                                <th scope="col"> Seçili Olan Adres : <?=$old_adres[1]?></th>
+                                   
+                                <?php }else{ ?>
+                                    <th scope="col"> Adres seçimi yapmalısınız </th>
+                                <?php }?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                
+                                <td><?=$doctor_val[2]["name"]?> </td>
+               
+                                <td><?=$doctor_val[1]?></td>
+                                <td scope="col">145236 </td>
+                                
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+     
+          
+           <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+           <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
        </div>
     <?php }else{ ?>
     <div class="inbox-head">
