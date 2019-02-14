@@ -37,12 +37,35 @@ $Excel->getActiveSheet()->setTitle('Sayfa1');
 $ord = ord('A');
 
 $info_text = array(
-    "Siparis NO: ",
-    "Ad Soyad: ",
-    "E-Mail: ",
-    "Telefon Numarasi: ",
-    "Adres: "
+    "Sıra NO",
+    "Hekim T.C",
+    "Ad Soyad",
+    "Branş",
+    "H.Puani",
+    "Tercihi",
+    "Ahb",
+    "Asm",
+    "Tsm",
+    "İlce",
+    "İslem Zamani"
 );
+
+$content = array(
+    array(
+        1,
+        11111,
+        "DR.Enes",
+        "PRATİSYEN",
+        111,
+        "Seçti",
+        "Ahb Bilgisi",
+        "Asm Bilgisi",
+        "Tsm Bilgisi",
+        "Kiremithane",
+        "".date('d-m-Y')
+    )
+);
+
 
 for($i = 0; $i < count($info_text); $i++)
 {
@@ -66,10 +89,13 @@ for($i = 0; $i < count($content); $i++)
 
 //olusturulan excel dosyası kaydediliyor
 $Kaydet = PHPExcel_IOFactory::createWriter($Excel, 'Excel5');
-$Kaydet->save("bilgi_cikisi.xls");
 
-//kullanıcı excel dosyasına yonlendiriliyor
-header("location:bilgi_cikisi.xls");
+
+header('Content-Type: application/octet-stream');
+header("Content-Disposition: attachment; filename=bilgi_cikisi.xls");
+
+$Kaydet->save('php://output');
+
 
 
 ?>
