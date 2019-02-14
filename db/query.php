@@ -18,7 +18,6 @@ require_once($rota."sec/sql_inj.php");
           parent::__construct ( $db_name );
       }
 
-
       public  function all_doctor(){
           try {
               $status = $this->conn->prepare ( 'select * from doctor' );
