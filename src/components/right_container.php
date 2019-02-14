@@ -63,6 +63,51 @@
             <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
     <?php } ?>
+
+    <div class="inbox-head">
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table  ">
+                            <thead>
+                            <tr>
+
+                                <th scope="col">Ad Soyad</th>
+                                <th scope="col">T.C</th>
+                                <th scope="col">Hizmet Puanı </th>
+                                <?php if(isset($old_adres[1])){ ?>
+                                    <th scope="col"> Seçili Olan Adres </th>
+                                <?php }else{ ?>
+                                    <th scope="col"> Adres seçimi yapmalısınız </th>
+                                <?php }?>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr >
+                                <td><?php echo (isset($doctor_variable[2]["name"])) ? $doctor_variable[2]["name"] : "-"?> </td>
+
+                                <td><?php echo (isset($doctor_variable[1])) ? $doctor_variable[1] : "-"?></td>
+                                <td scope="col"><?php echo (isset($doctor_variable[3])) ? $doctor_variable[3] : "-"?> </td>
+                                <td><?php echo (isset($old_adres[1])) ? $old_adres[1] : ""?></td>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+        <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+    </div>
     <div class="inbox-body">
         <table class="table table-inbox table-hover">
             <tbody>

@@ -12,13 +12,11 @@
       protected $servername = "localhost";
       protected $username = "root";
       protected $password = "";
-      protected $dbname = "";
+      protected $dbname = "saglik_bak";
       public $conn;
 
-      function __construct ($dbname)
+      function __construct ()
       {
-          $this->dbname = $dbname ;
-
           try {
               $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
               // set the PDO error mode to exception
@@ -47,10 +45,38 @@
           return $data;
       }
 
+      public function doctor_adres($id,$adres){
+      try{
+          $query =$this->bring_doctor ($id);
+              if($query[4]!=0)
+                $this->update_adres ($query[4],"adres_select",0);
 
-      public  function all_adres($parameters = 0){
+          $this->update_doctor ($id,"doctor_old_place",$adres);
+          $this->update_doctor ($id,"doctor_selection","1");
+          $this->update_adres ($adres,"adres_select",$id);
+             return true;
+      }catch (PDOException $e ){
+          return false;
+      }
+      }
+
+      public function doctor_durum($id,$durum){
+          if($durum == "pas")
+              $durum = 2;
+          else if($durum == "gelmedi")
+              $durum = 0;
+         try{
+             $this->update_doctor ($id,"doctor_selection",$durum);
+             return true;
+         }catch (PDOException $e){
+             return false;
+         }
+      }
+
+
+      public  function all_adres(){
           try {
-              $status = $this->conn->prepare ( 'select * from adres where adres_select ='.$parameters );
+              $status = $this->conn->prepare ( 'select * from adres where adres_select =0' );
               $status->execute ();
 
               $result = $status->setFetchMode ( PDO::FETCH_ASSOC );
@@ -66,11 +92,14 @@
       }
 
 
-      public function create_doctor ($num ,$id, $var , $place = 0 , $old_place = 0 , $selection = 0)
+      public function create_doctor ($id, $var , $place = 0 , $old_place = 0 , $selection = 0)
       {
+          $query = $this->all_doctor ();
+          $must = $query[count ($query)-1]["must"]+1;
+
           $var = json_encode ($var,JSON_UNESCAPED_UNICODE);
           try {
-              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,doctor_place_id,doctor_old_place,doctor_selection) VALUES ('$num','$id','$var','$place','$old_place','$selection')" );
+              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,doctor_place_id,doctor_old_place,doctor_selection) VALUES ('$must','$id','$var','$place','$old_place','$selection')" );
               return true;
           } catch (PDOException $e) {
               return false;
@@ -78,8 +107,10 @@
       }
 
 
-      public function create_adres ($id , $adres , $adres_select )
+      public function create_adres ( $adres )
       {
+          $adres_select = 0;
+          $id = rand(1,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
           try {
               $sorgu = $this->conn->exec ( "INSERT INTO adres (id,address,adres_select) VALUES ('$id','$adres','$adres_select')" );
               return true;
@@ -127,7 +158,7 @@
                   $data[0] = $key["must"];
                   $data[1] = $key["doctor_id"];
                   $data[2] = json_decode ($key["doctor_var"],JSON_UNESCAPED_UNICODE);
-                  $data[3] = $key["doctor_place_id"];
+                  $data[3] = $key["hizmet_puan"];
                   $data[4] = $key["doctor_old_place"];
                   $data[5] = $key["doctor_selection"];
               }
