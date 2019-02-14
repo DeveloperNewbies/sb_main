@@ -47,8 +47,8 @@
             </div>
 
 
-            <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
-            <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+            <a href="<?=$rota."demo_dr/../report/word_out.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+            <a href="<?=$rota."demo_dr/../report/word_out.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
     <?php }?>
 
@@ -93,8 +93,8 @@
         </div>
 
 
-        <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
-        <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+        <a href="<?=$rota."demo_dr/../report/word_out.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+        <a href="<?=$rota."demo_dr/../report/word_out.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
     </div>
     <div class="inbox-body">
         <table class="table table-inbox table-hover">

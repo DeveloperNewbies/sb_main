@@ -54,13 +54,12 @@ if(isset($_GET["write"])){
             $op_number = "11";
             $dr_tc = "DR1111";
             $dr_isim = "DR.Enes";
-            $dr_brans = "Jinekolog";
+            $dr_brans = "PRATİSYEN";
             $dr_puan = "11111";
             $dr_adres = "Adana Kiremithane";
             //dr_no doktorun db deki sırası
             $dr_no = "111";
             $dr_tercih = "Seçti";
-
             $date_before = date('01-m-Y');
             $date_after = date("31-m-Y");
 
