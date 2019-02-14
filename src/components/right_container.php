@@ -50,19 +50,7 @@
             <a href="<?=$rota."pdf/index.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
             <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
-    <?php }else{ ?>
-        <div class="inbox-head">
-            <h4>Doktor: -</h4>
-            <h5>Görev Başlama Tarihi: -</h5>
-            <h5>Tc: -</h5>
-            <?php if(isset($old_adres[1])){ ?>
-                <h5>Seçili Olan Adres: <?=$old_adres[1]?>  </h5>
-            <?php }else{ ?>
-                <h5>Adres seçimi yapmalısınız</h5>
-            <?php }?>
-            <a href="<?=$rota."pdf/index.php"?>?write=all"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
-        </div>
-    <?php } ?>
+    <?php }?>
 
     <div class="inbox-head">
         <div>

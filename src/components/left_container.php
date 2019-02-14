@@ -27,10 +27,7 @@
 
 
 <li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
-                  <a href="index.php?url=<?=$value['doctor_id']?>"><?=$value["must"]?> <?=$name?> <?=$selection?> </a>
-
-                <li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
-                  <a href="index.php?url=<?=$value['doctor_id']?>"><?=$value["must"]?>-  <?=$name?> <?=$selection?> </a>
+                  <a href="index.php?url=<?=$value['doctor_id']?>"><?=$value["must"]?> - <?=$name?> <?=$selection?> </a>
               </li>
           <?php } ?>
       </ul>
