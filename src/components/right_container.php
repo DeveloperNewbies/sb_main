@@ -15,10 +15,9 @@ body{
                         <thead>
                             <tr>
 
-                                <th scope="col">Adı</th>
-                                <th scope="col">Göreve Başlama Tarihi</th>
-                                
+                                <th scope="col">Ad Soyad</th>
                                 <th scope="col">T.C</th>
+                                <th scope="col">Hizmet Puanı </th>
                               <?php if(isset($old_adres[1])){ ?>
                                 <th scope="col"> Seçili Olan Adres : <?=$old_adres[1]?></th>
                                    
@@ -31,10 +30,9 @@ body{
                             <tr >
                                 
                                 <td><?=$doctor_val[2]["name"]?> </td>
-                               
-                                <td><?=$doctor_val[2]["started_date"]?></td>
-
+               
                                 <td><?=$doctor_val[1]?></td>
+                                <td scope="col">145236 </td>
                                 
                             </tr>
 
