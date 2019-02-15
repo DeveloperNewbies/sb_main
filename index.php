@@ -21,10 +21,11 @@ if(isset($_GET["url"])) {
 $all_doctor = $mquery->all_doctor ();
 $all_adres = $mquery->all_adres ();
 
- ?>
+?>
 <?php require_once ($rota . "src/components/head.php");?>
+
 <body>
-<div >
+<div>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <div class="mail-box">
         <?php   require_once ($rota."src/components/left_container.php") ; ?>

@@ -22,11 +22,11 @@ $Excel = new PHPExcel();
 
 // Oluşturacağımız Excel Dosyasının ayarlarını yapıyoruz.
 // Bu bilgiler O kadar önenli değil kafanıza göre doldurabilirsiniz.
-$Excel->getProperties()->setCreator("Admin")
-    ->setLastModifiedBy("Admin")
-    ->setTitle("Musteri Bilgi Listesi")
-    ->setSubject("Musteri Bilgi Listesi")
-    ->setDescription("Musteri Bilgi Listesi")
+$Excel->getProperties()->setCreator("Saglik Bakanligi")
+    ->setLastModifiedBy("AY-SOFT")
+    ->setTitle("Doktor Bilgi Listesi")
+    ->setSubject("Doktor Bilgi Listesi")
+    ->setDescription("Doktor Bilgi Listesi")
     ->setKeywords("Tam Liste")
     ->setCategory("Tam Liste");
 
@@ -71,7 +71,7 @@ for ($m = 0 ; $m < count ($all_doctor) ; $m++){
     $content[$m][0] = $all_doctor[$m]["must"];
     $content[$m][1] = $all_doctor[$m]["doctor_var"]["tc"];
     $content[$m][2] = $all_doctor[$m]["doctor_var"]["name"];
-    $content[$m][3] = $all_doctor[$m]["doctor_var"]["brans"];
+    $content[$m][3] = ($all_doctor[$m]["doctor_var"]["brans"] == "") ? "-" : $all_doctor[$m]["doctor_var"]["brans"];
     $content[$m][4] = $all_doctor[$m]["hizmet_puan"];
        if($all_doctor[$m]["doctor_selection"] == 0)
          $content[$m][5] ="Gelmedi";
