@@ -33,7 +33,12 @@ if(isset($_GET["write"])){
             $dr_adres = $adres[0]["address"]["adres"];
             //dr_no doktorun db deki sırası
             $dr_no = $doctor[0]["must"];
-            $dr_tercih = $doctor[0]["doctor_selection"];
+            if($doctor[0]["doctor_selection"] == 0)
+                $dr_tercih ="Gelmedi";
+            else if($doctor[0]["doctor_selection"] == 1)
+                $dr_tercih ="Adres Seçimi Yaptı";
+            else if($doctor[0]["doctor_selection"] == 2)
+                $dr_tercih = "Pas Geçti";
             $date_before = date('01-m-Y');
             $date_after = date("31-m-Y", strtotime('+2 years'));
 
