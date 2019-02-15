@@ -37,6 +37,9 @@
 
               $data = array();
               foreach ($status->fetchAll () as $key) {
+                  if(isset($key["doctor_var"]))
+                      $key["doctor_var"] = json_decode ($key["doctor_var"] , JSON_UNESCAPED_UNICODE);
+
                   array_push ($data , $key);
               }
           } catch (PDOException $err) {
@@ -48,8 +51,8 @@
       public function doctor_adres($id,$adres){
       try{
           $query =$this->bring_doctor ($id);
-              if($query[4]!=0)
-                $this->update_adres ($query[4],"adres_select",0);
+              if($query[0]["doctor_old_place"]!=0)
+                $this->update_adres ($query[0]["doctor_old_place"],"adres_select",0);
 
           $this->update_doctor ($id,"doctor_old_place",$adres);
           $this->update_doctor ($id,"doctor_selection","1");
@@ -83,6 +86,9 @@
 
               $data = array();
               foreach ($status->fetchAll () as $key) {
+                  if(isset($key["address"]))
+                      $key["address"] = json_decode ($key["address"] , JSON_UNESCAPED_UNICODE);
+
                   array_push ($data , $key);
               }
           } catch (PDOException $err) {
@@ -92,14 +98,22 @@
       }
 
 
-      public function create_doctor ($id, $var , $place = 0 , $old_place = 0 , $selection = 0)
+      public function create_doctor ($var )
       {
+          $place = 0 ;
+          $old_place = 0 ;
+          $selection = 0 ;
+          $id = rand(1,9).rand(1,9).rand(1,9).rand(1,9);
           $query = $this->all_doctor ();
+
+          if(count ($query) == 0 )
+              $must = 1;
+          else
           $must = $query[count ($query)-1]["must"]+1;
 
           $var = json_encode ($var,JSON_UNESCAPED_UNICODE);
           try {
-              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,doctor_place_id,doctor_old_place,doctor_selection) VALUES ('$must','$id','$var','$place','$old_place','$selection')" );
+              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,hizmet_puan,doctor_old_place,doctor_selection) VALUES ('$must','$id','$var','$place','$old_place','$selection')" );
               return true;
           } catch (PDOException $e) {
               return false;
@@ -111,6 +125,7 @@
       {
           $adres_select = 0;
           $id = rand(1,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+          $adres = json_encode ($adres ,JSON_UNESCAPED_UNICODE );
           try {
               $sorgu = $this->conn->exec ( "INSERT INTO adres (id,address,adres_select) VALUES ('$id','$adres','$adres_select')" );
               return true;
@@ -136,6 +151,9 @@
 
       public function update_adres ($id , $where_update , $value)
       {
+          if($where_update == "address")
+              $value = json_encode ($value, JSON_UNESCAPED_UNICODE);
+
           try {
               $sorgu = $this->conn->exec ( "UPDATE adres SET {$where_update}='$value'  WHERE id='$id'" );
               return true;
@@ -155,12 +173,10 @@
 
               $data = array();
               foreach ($status->fetchAll () as $key) {
-                  $data[0] = $key["must"];
-                  $data[1] = $key["doctor_id"];
-                  $data[2] = json_decode ($key["doctor_var"],JSON_UNESCAPED_UNICODE);
-                  $data[3] = $key["hizmet_puan"];
-                  $data[4] = $key["doctor_old_place"];
-                  $data[5] = $key["doctor_selection"];
+                  if(isset($key["doctor_var"]))
+                       $key["doctor_var"] = json_decode ($key["doctor_var"],JSON_UNESCAPED_UNICODE);
+
+                  array_push ($data , $key);
               }
           } catch (PDOException $err) {
               return false;
@@ -180,9 +196,9 @@
 
               $data = array();
               foreach ($status->fetchAll () as $key) {
-                  $data[0] = $key["id"];
-                  $data[1] = $key["address"];
-                  $data[2] = $key["adres_select"];
+                  if(isset($key["address"]))
+                      $key["address"] = json_decode ($key["address"],JSON_UNESCAPED_UNICODE);
+                  array_push ($data , $key);
               }
           } catch (PDOException $err) {
               return false;

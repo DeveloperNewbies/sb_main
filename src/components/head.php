@@ -155,7 +155,6 @@
         .inbox-head {
             background: none repeat scroll 0 0 #41cac0;
             border-radius: 0 4px 0 0;
-
             min-height: 80px;
             padding: 20px;
         }
@@ -184,7 +183,6 @@
         }
         .table-inbox {
             border: 2px solid dodgerblue;
-
             margin-bottom: 0;
         }
         .table-inbox tr td {
