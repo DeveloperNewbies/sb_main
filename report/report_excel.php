@@ -11,10 +11,9 @@ include 'excel/Classes/PHPExcel/IOFactory.php';
 
 
 $rota ="";
-$db_name ="saglik_bak";
-$global_adres ="localhost";
 require_once ( $rota . "../db/query.php" );
-$mquery = new Query($db_name);
+$mquery = new Query();
+$all_doctor = $mquery->all_doctor ();
 
 
 
@@ -50,8 +49,9 @@ $info_text = array(
     "İslem Zamani"
 );
 
+
 $content = array(
-    array(
+    /*array(
         1,
         11111,
         "DR.Enes",
@@ -63,8 +63,35 @@ $content = array(
         "Tsm Bilgisi",
         "Kiremithane",
         "".date('d-m-Y')
-    )
+    )*/
 );
+
+for ($m = 0 ; $m < count ($all_doctor) ; $m++){
+    array_push($content, array());
+    $content[$m][0] = $all_doctor[$m]["must"];
+    $content[$m][1] = $all_doctor[$m]["doctor_var"]["tc"];
+    $content[$m][2] = $all_doctor[$m]["doctor_var"]["name"];
+    $content[$m][3] = $all_doctor[$m]["doctor_var"]["brans"];
+    $content[$m][4] = $all_doctor[$m]["hizmet_puan"];
+       if($all_doctor[$m]["doctor_selection"] == 0)
+         $content[$m][5] ="Gelmedi";
+       else if($all_doctor[$m]["doctor_selection"] == 1)
+           $content[$m][5] ="Adres Seçimi Yaptı";
+       else if($all_doctor[$m]["doctor_selection"] == 2)
+           $content[$m][5] = "Pas Geçti";
+    $content[$m][6] = $all_doctor[$m]["doctor_var"]["ahb"];
+    $content[$m][7] = $all_doctor[$m]["doctor_var"]["asm"];
+    $content[$m][8] = $all_doctor[$m]["doctor_var"]["tsm"];
+    if($all_doctor[$m]["doctor_old_place"] != 0){
+        $adres = $mquery->bring_adres ($all_doctor[$m]["doctor_old_place"]);
+        $adres = $adres[0]["address"]["adres"];
+    }else{
+        $adres = "-";
+    }
+    $content[$m][9] = $adres;
+    $content[$m][10] = "".date('d-m-Y');
+
+}
 
 
 for($i = 0; $i < count($info_text); $i++)

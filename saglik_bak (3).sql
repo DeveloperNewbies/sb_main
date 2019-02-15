@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 14 Şub 2019, 19:01:52
+-- Üretim Zamanı: 15 Şub 2019, 10:19:35
 -- Sunucu sürümü: 10.1.36-MariaDB
 -- PHP Sürümü: 7.2.11
 
@@ -39,10 +39,10 @@ CREATE TABLE `adres` (
 --
 
 INSERT INTO `adres` (`id`, `address`, `adres_select`) VALUES
-(81251283, 'Ellek kasabası TSM', '69918187790'),
-(51914253, 'Düziçi TSM', '0'),
-(74167839, 'Adana Seyhan Mahallesi', '0'),
-(62358289, 'İskenderun Kovabaşı TSM', '0');
+(68128390, '{\"adres\":\"Ellek kasabası TSM\",\"ilce\":\"ilce\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', '1514'),
+(68873846, '{\"adres\":\"Düziçi TSM\",\"ilce\":\"ilce\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', '0'),
+(87305514, '{\"adres\":\"Adana Seyhan Mahallesi\",\"ilce\":\"ilce\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', '0'),
+(29189120, '{\"adres\":\"İskenderun Kovabaşı TSM\",\"ilce\":\"ilce\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', '0');
 
 -- --------------------------------------------------------
 
@@ -64,10 +64,10 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`must`, `doctor_id`, `doctor_var`, `hizmet_puan`, `doctor_old_place`, `doctor_selection`) VALUES
-(0, 69918187790, '{\"name\":\"Ahmet Çavuş\",\"started_date\":\"2009\"}', 0, '81251283', '1'),
-(1, 44194028479, '{\"name\":\"Enes Budak\",\"started_date\":\"2002\"}', 0, '0', '0'),
-(2, 41339595302, '{\"name\":\"Mehmet Tuna\",\"started_date\":\"2003\"}', 0, '0', '0'),
-(3, 88741893395, '{\"name\":\"Alparslan İlbey\",\"started_date\":\"2018\"}', 0, '0', '0');
+(1, 1514, '{\"name\":\"Ahmet Çavuş\",\"started_date\":\"2019\",\"tc\":\"31077068053\",\"brans\":\"brans\",\"ahb\":\"ahb\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', 0, '68128390', '1'),
+(2, 4457, '{\"name\":\"Enes Budak\",\"started_date\":\"2004\",\"tc\":\"96883766394\",\"brans\":\"brans\",\"ahb\":\"ahb\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', 0, '0', '0'),
+(3, 8322, '{\"name\":\"Mehmet Tuna\",\"started_date\":\"2013\",\"tc\":\"68441883222\",\"brans\":\"brans\",\"ahb\":\"ahb\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', 0, '0', '0'),
+(4, 7576, '{\"name\":\"Alparslan İlbey\",\"started_date\":\"2002\",\"tc\":\"11975047250\",\"brans\":\"brans\",\"ahb\":\"ahb\",\"asm\":\"asm\",\"tsm\":\"tsm\"}', 0, '0', '0');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
