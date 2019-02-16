@@ -27,7 +27,7 @@
             if($value["doctor_selection"] != 1){
                 ?>
                 <li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
-                    <a href="/<?=$value['doctor_id']?>"><?=$value["must"]?> - <?=$name?> <?=$selection?> </a>
+                    <a href="<?=$value['doctor_id']?>"><?=$value["must"]?> - <?=$name?> <?=$selection?> </a>
                 </li>
             <?php }
         }

@@ -48,7 +48,7 @@
            <?php if(isset($url)){ ?>
             <a href="/write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
             <?php } ?>
-            <a href="all/all""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+            <a href="report/report_excel.php""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
     <div class="inbox-body">
         <table class="table table-inbox table-hover">
@@ -57,9 +57,6 @@
             <td class="view-message"> </td>
             <td class="view-message inbox-small-cells"></td>
             <td class="view-message text-right">
-                <?php if(isset($url)){ ?>
-
-                <?php }?>
             </td>
 
             <?php
