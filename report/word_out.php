@@ -5,6 +5,8 @@
  * Date: 14.02.2019
  * Time: 21:00
  */
+
+
 require_once ('word/index.php');
 
 $rota ="";
@@ -14,8 +16,10 @@ $mquery = new Query();
 
 
 
+
 if(isset($_GET["write"])){
     $url = $_GET["write"];
+
     $doctor = $mquery->bring_doctor ($url);
     if($doctor !== false){
         $adres = $mquery->bring_adres ($doctor[0]["doctor_old_place"]);
@@ -29,7 +33,14 @@ if(isset($_GET["write"])){
             $dr_adres = $adres[0]["address"]["adres"];
             //dr_no doktorun db deki sırası
             $dr_no = $doctor[0]["must"];
-            $dr_tercih = $doctor[0]["doctor_selection"];
+            if($doctor[0]["doctor_selection"] == 0)
+                $dr_tercih ="-";
+            else if($doctor[0]["doctor_selection"] == 1)
+                $dr_tercih ="Adres Seçimi Yaptı";
+            else if($doctor[0]["doctor_selection"] == 2)
+                $dr_tercih = "Pas Geçti";
+            else if($doctor[0]["doctor_selection"] == 3)
+                $dr_tercih = "Gelmedi";
             $date_before = date('01-m-Y');
             $date_after = date("31-m-Y", strtotime('+2 years'));
 
@@ -51,7 +62,6 @@ if(isset($_GET["write"])){
             header("Content-Disposition: attachment; filename=sozlesme.docx");
             $templateProcessor->saveAs('php://output');
         }
-
 
     }
 }else{

@@ -67,7 +67,7 @@
           if($durum == "pas")
               $durum = 2;
           else if($durum == "gelmedi")
-              $durum = 0;
+              $durum = 3;
          try{
              $this->update_doctor ($id,"doctor_selection",$durum);
              return true;

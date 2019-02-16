@@ -9,10 +9,12 @@
 /** kullandigimiz kutuphane cagiriliyor */
 include 'excel/Classes/PHPExcel/IOFactory.php';
 
+
 $rota ="";
 require_once ( $rota . "../db/query.php" );
 $mquery = new Query();
 $all_doctor = $mquery->all_doctor ();
+
 
 
 // Excel Değişkeni ile Classımızı başlatıyoruz.
@@ -20,11 +22,11 @@ $Excel = new PHPExcel();
 
 // Oluşturacağımız Excel Dosyasının ayarlarını yapıyoruz.
 // Bu bilgiler O kadar önenli değil kafanıza göre doldurabilirsiniz.
-$Excel->getProperties()->setCreator("Admin")
-    ->setLastModifiedBy("Admin")
-    ->setTitle("Musteri Bilgi Listesi")
-    ->setSubject("Musteri Bilgi Listesi")
-    ->setDescription("Musteri Bilgi Listesi")
+$Excel->getProperties()->setCreator("Saglik Bakanligi")
+    ->setLastModifiedBy("AY-SOFT")
+    ->setTitle("Doktor Bilgi Listesi")
+    ->setSubject("Doktor Bilgi Listesi")
+    ->setDescription("Doktor Bilgi Listesi")
     ->setKeywords("Tam Liste")
     ->setCategory("Tam Liste");
 
@@ -47,18 +49,38 @@ $info_text = array(
     "İslem Zamani"
 );
 
+
+$content = array(
+    /*array(
+        1,
+        11111,
+        "DR.Enes",
+        "PRATİSYEN",
+        111,
+        "Seçti",
+        "Ahb Bilgisi",
+        "Asm Bilgisi",
+        "Tsm Bilgisi",
+        "Kiremithane",
+        "".date('d-m-Y')
+    )*/
+);
+
 for ($m = 0 ; $m < count ($all_doctor) ; $m++){
+    array_push($content, array());
     $content[$m][0] = $all_doctor[$m]["must"];
     $content[$m][1] = $all_doctor[$m]["doctor_var"]["tc"];
     $content[$m][2] = $all_doctor[$m]["doctor_var"]["name"];
-    $content[$m][3] = $all_doctor[$m]["doctor_var"]["brans"];
+    $content[$m][3] = ($all_doctor[$m]["doctor_var"]["brans"] == "") ? "-" : $all_doctor[$m]["doctor_var"]["brans"];
     $content[$m][4] = $all_doctor[$m]["hizmet_puan"];
        if($all_doctor[$m]["doctor_selection"] == 0)
-         $content[$m][5] ="Gelmedi";
+         $content[$m][5] ="-";
        else if($all_doctor[$m]["doctor_selection"] == 1)
            $content[$m][5] ="Adres Seçimi Yaptı";
        else if($all_doctor[$m]["doctor_selection"] == 2)
            $content[$m][5] = "Pas Geçti";
+       else if($all_doctor[$m]["doctor_selection"] == 3)
+           $content[$m][5] = "Gelmedi";
     $content[$m][6] = $all_doctor[$m]["doctor_var"]["ahb"];
     $content[$m][7] = $all_doctor[$m]["doctor_var"]["asm"];
     $content[$m][8] = $all_doctor[$m]["doctor_var"]["tsm"];
@@ -72,6 +94,7 @@ for ($m = 0 ; $m < count ($all_doctor) ; $m++){
     $content[$m][10] = "".date('d-m-Y');
 
 }
+
 
 for($i = 0; $i < count($info_text); $i++)
 {

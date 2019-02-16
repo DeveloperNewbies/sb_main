@@ -125,7 +125,7 @@ if(isset($_GET["write"])){
 
             $adres = $mquery->bring_adres ($query[4]);
 
-            $variable[0] = ($query[5] == 0) ? "Gelmedi" : ($query[5] == 1) ? "Adres Seçimi Yaptı" : "Pas Geçti" ;
+            $variable[0] = ($query[5] == 0) ? "-" : ($query[5] == 1) ? "Adres Seçimi Yaptı" : ($query[5] == 2) ? "Pas Geçti" : "Gelmedi" ;
             $variable[1] = $query[1];
             $variable[2] = $query[2]["name"];
             $variable[3] = (isset($adres[1])) ? $adres[1] : "-";
