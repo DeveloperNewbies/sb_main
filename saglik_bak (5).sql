@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 15 Şub 2019, 20:38:32
+-- Üretim Zamanı: 16 Şub 2019, 10:48:10
 -- Sunucu sürümü: 10.1.36-MariaDB
 -- PHP Sürümü: 7.2.11
 
@@ -86,7 +86,13 @@ INSERT INTO `adres` (`id`, `address`, `adres_select`) VALUES
 (9944, '{\"adres\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"ilce\":\"\",\"asm\":\"\",\"müdürlük\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\"}', '45'),
 (9795, '{\"adres\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"ilce\":\"\",\"asm\":\"\",\"müdürlük\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\"}', '46'),
 (7682, '{\"adres\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"ilce\":\"\",\"asm\":\"\",\"müdürlük\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\"}', '47'),
-(5076, '{\"adres\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"ilce\":\"\",\"asm\":\"\",\"müdürlük\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\"}', '48');
+(5076, '{\"adres\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"ilce\":\"\",\"asm\":\"\",\"müdürlük\":\"ADANA İL SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\"}', '48'),
+(3970, '{\"adres\":\"DAĞLIOĞLU ASM\",\"ilce\":\"\",\"asm\":\"DAĞLIOĞLU ASM\",\"tsm\":\"SEYHAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"SEYHAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\"01.03.263\"}', '0'),
+(5316, '{\"adres\":\" DADALOĞLU ASM\",\"ilce\":\"\",\"asm\":\" DADALOĞLU ASM\",\"tsm\":\"YÜREĞİR İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"YÜREĞİR İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\"01.04.129\"}', '0'),
+(4161, '{\"adres\":\"AFETEVLERİ ASM\",\"ilce\":\"\",\"asm\":\"AFETEVLERİ ASM\",\"tsm\":\"YÜREĞİR İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"YÜREĞİR İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\"01.04.002\"}', '0'),
+(3596, '{\"adres\":\"KÜRKÇÜLER CEZAEVLERİ 2 NOLU ASM\",\"ilce\":\"\",\"asm\":\"KÜRKÇÜLER CEZAEVLERİ 2 NOLU ASM\",\"tsm\":\"SARIÇAM İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"SARIÇAM İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\" 01.02.050\"}', '0'),
+(3553, '{\"adres\":\" MERKEZ 6 NOLU ASM\",\"ilce\":\"\",\"asm\":\" MERKEZ 6 NOLU ASM\",\"tsm\":\"KOZAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"KOZAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\"01.11.044\"}', '0'),
+(9995, '{\"adres\":\"UÇAK ASM\",\"ilce\":\"\",\"asm\":\"UÇAK ASM\",\"tsm\":\"SEYHAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"müdürlük\":\"SEYHAN İLÇE SAĞLIK MÜDÜRLÜĞÜ\",\"birim\":\"\",\"dhy\":\"0\",\"ahb\":\"01.03.250\"}', '0');
 
 -- --------------------------------------------------------
 
