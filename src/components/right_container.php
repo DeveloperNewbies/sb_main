@@ -46,9 +46,9 @@
 
 
            <?php if(isset($url)){ ?>
-            <a href="<?=$rota."demo_dr/../report/word_out.php"?>?write=<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+            <a href="/write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
             <?php } ?>
-            <a href="<?=$rota."demo_dr/../report/report_excel.php"?>"><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+            <a href="all/all""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
     <div class="inbox-body">
         <table class="table table-inbox table-hover">

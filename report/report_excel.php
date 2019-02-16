@@ -74,11 +74,13 @@ for ($m = 0 ; $m < count ($all_doctor) ; $m++){
     $content[$m][3] = ($all_doctor[$m]["doctor_var"]["brans"] == "") ? "-" : $all_doctor[$m]["doctor_var"]["brans"];
     $content[$m][4] = $all_doctor[$m]["hizmet_puan"];
        if($all_doctor[$m]["doctor_selection"] == 0)
-         $content[$m][5] ="Gelmedi";
+         $content[$m][5] ="-";
        else if($all_doctor[$m]["doctor_selection"] == 1)
            $content[$m][5] ="Adres Seçimi Yaptı";
        else if($all_doctor[$m]["doctor_selection"] == 2)
            $content[$m][5] = "Pas Geçti";
+       else if($all_doctor[$m]["doctor_selection"] == 3)
+           $content[$m][5] = "Gelmedi";
     $content[$m][6] = $all_doctor[$m]["doctor_var"]["ahb"];
     $content[$m][7] = $all_doctor[$m]["doctor_var"]["asm"];
     $content[$m][8] = $all_doctor[$m]["doctor_var"]["tsm"];

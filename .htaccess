@@ -1,0 +1,21 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^write/([a-z0-9_-]+)$            ./report/word_out.php?write=$1
+RewriteRule ^all/([a-z0-9_-]+)$              ./report/report_excel.php?all=$1
+RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)$   ./index.php?url=$1&adres=$2
+RewriteRule ^([a-z0-9_-]+)$                 ./index.php?url=$1
+
+
+
+#hata alması durumunda yönlendirme yazdırılır
+#ErrorDocument 404 http://localhost/errors/404.html
+#ErrorDocument 403 http://localhost/errors/403.html
+#ErrorDocument 500 http://localhost/errors/500.html
+
+#dizinleri listelemesi engellenir
+Options -Indexes
