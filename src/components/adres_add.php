@@ -12,7 +12,6 @@ if(isset($_POST["sub"])){
     require_once ("../../db/query.php");
     $query = new Query();
 
-    print_r($_POST);
 
     if(isset($_POST["tsm"]))
         $tsm = $_POST["tsm"];
