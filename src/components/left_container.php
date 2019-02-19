@@ -5,32 +5,59 @@
 }
 
 </style>
-<aside class="sm-side">
+<aside class="sm-side" id="test321">
     <div class="user-head">
         <?php require_once ($rota."src/components/head_left_title.php")?>
     </div>
+<div class="col-md-1"></div>
+    <div class="btn-group btn-group-lg">
+   <td> <button class="btn btn-primary" >Sıra Bekleyenler</button>   </td>
+    <td>  <button class="btn btn-warning" >Pas  Geçenler</button>  </td>
+    <td>  <button class="btn btn-danger" >Gelmeyenler </button> </td>
+    <td>  <button class="btn btn-success" >Adres Seçenler</button>  </td>
+   
+   </div>
     <ul class="inbox-nav inbox-divider">
-          <?php foreach ($all_doctor as $value){
-              $doctor_var = json_decode ($value["doctor_var"],JSON_UNESCAPED_UNICODE);
-              $name = $doctor_var["name"];
-              $puan = $doctor_var["started_date"];
-              $selection = $value["doctor_selection"];
-              if($selection == 0)
-                  $selection = "<span class=\"label label-danger pull-right\">Gelmedi</span>";
-              else if($selection == 1)
-                  $selection = "<span  class=\"label label-success pull-right\">Adres seçildi</span>";
-              else if($selection == 2)
-                  $selection = "<span class=\"label label-warning pull-right\">Pas geçti</span>";
+        <?php
+        foreach ($all_doctor as $value){
+            $name = $value["doctor_var"]["name"];
+            $puan = $value["doctor_var"]["started_date"];
+            $selection = $value["doctor_selection"];
+            if($selection == 0)
+                $selection = "";
+            else if($selection == 1)
+                $selection = "<span  class=\"label label-success pull-right\">Adres seçildi</span>";
+            else if($selection == 2)
+                $selection = "<span class=\"label label-warning pull-right\">Pas geçti</span>";
+            else if($selection == 3)
+                $selection = "<span class=\"label label-danger pull-right\">Gelmedi</span>";
+            $adres = $mquery->bring_adres ($value["doctor_old_place"]);
+            if($value["doctor_selection"] != 1){
+                ?>
+                <li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
+                    <a href="<?=$value['doctor_id']?>"><?=$value["must"]?> - <?=$name?> <?=$selection?> </a>
+                </li>
+            <?php }
+        }
+        ?>
+    </ul>
+ <hr>
+    <ul class="inbox-nav inbox-divider">
+        <?php
+        foreach ($all_doctor as $value){
+            $name = $value["doctor_var"]["name"];
+            $puan = $value["doctor_var"]["started_date"];
+            $selection = $value["doctor_selection"];
+            $adres = $mquery->bring_adres ($value["doctor_old_place"]);
+            if($selection == 1){
+                $selection = "<span  class=\"label label-success pull-right\">Adres seçildi</span>";
+                ?>
+                <li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
+                    <a href="index.php?url=<?=$value['doctor_id']?>"><?=$value["must"]?> - <?=$name?> <?=$selection?> </a>
+                </li>
+            <?php }
+        }
+        ?>
+    </ul>
 
-              $adres = $mquery->bring_adres ($value["doctor_old_place"]);
-              ?>
-
-
-<li class="<?php echo ($value['doctor_id'] == $url) ? 'active' : '' ; ?>">
-                  <a href="index.php?url=<?=$value['doctor_id']?>"><?=$value["must"]?> <?=$name?> <?=$selection?> </a>
-                  
-
-              </li>
-          <?php } ?>
-      </ul>
 </aside>
