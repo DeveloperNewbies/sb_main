@@ -98,9 +98,8 @@
       }
 
 
-      public function create_doctor ($var )
+      public function create_doctor ($var , $place = 0 )
       {
-          $place = 0 ;
           $old_place = 0 ;
           $selection = 0 ;
           $id = rand(1,9).rand(1,9).rand(1,9).rand(1,9);

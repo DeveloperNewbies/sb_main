@@ -46,7 +46,7 @@
 
 
            <?php if(isset($url)){ ?>
-            <a href="/write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+            <a href="write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
             <?php } ?>
             <a href="report/report_excel.php""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>

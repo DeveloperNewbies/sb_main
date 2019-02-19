@@ -5,10 +5,11 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^write/([a-z0-9_-]+)$            ./demo_dr/report/word_out.php?write=$1
-RewriteRule ^all/([a-z0-9_-]+)$              ./demo_dr/report/report_excel.php?all=$1
-RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)$   ./demo_dr/index.php?url=$1&adres=$2
-RewriteRule ^([a-z0-9_-]+)$                 ./demo_dr/index.php?url=$1
+RewriteRule ^doctor$                          ./demo_dr/src/components/doctor_add.php
+RewriteRule ^write/([a-z0-9_-]+)$             ./demo_dr/report/word_out.php?write=$1
+RewriteRule ^all/([a-z0-9_-]+)$               ./demo_dr/report/report_excel.php?all=$1
+RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)$     ./demo_dr/index.php?url=$1&adres=$2
+RewriteRule ^([a-z0-9_-]+)$                   ./demo_dr/index.php?url=$1
 
 
 
