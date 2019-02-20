@@ -149,17 +149,10 @@
 
       public function update_adres ($id , $where_update , $value)
       {
-          if( Strlen($id) == 0 && is_numeric ($id) == false)
-              return false ;
-
-          if(Strlen($where_update)<=10 && !is_numeric ($where_update)  )
-              return false;
-
-          
               $value = json_encode ($value, JSON_UNESCAPED_UNICODE);
 
           try {
-              $sorgu = $this->conn->exec ( "UPDATE adres SET {$where_update}='$value'  WHERE id='$id'" );
+              $sorgu = $this->conn->exec ( "UPDATE adres SET {$where_update}= {$value} WHERE id='$id'" );
               return true;
           } catch (PDOException $e) {
               return false;
@@ -169,8 +162,6 @@
 
       public function bring_doctor ($doctor_num)
       {
-          if( Strlen($doctor_num) == 0 && is_numeric ($doctor_num) == false)
-              return false ;
 
           try {
               $status = $this->conn->prepare ( 'select * from doctor where doctor_id="' . $doctor_num . '"' );
@@ -195,8 +186,6 @@
 
       public function bring_adres ($id)
       {
-          if( Strlen($id) == 0 && is_numeric ($id) == false)
-              return false ;
           try {
               $status = $this->conn->prepare ( 'select * from adres where id="' . $id . '"' );
               $status->execute ();

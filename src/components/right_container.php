@@ -55,8 +55,11 @@
             <tbody>
             <td class="view-message dont-show">Sıra   Adres</td>
             <td class="view-message"> </td>
-            <td class="view-message inbox-small-cells"></td>
+            <td class="view-message inbox-small-cells">
+                <button onclick="tryelse1(<?=$url?> , 'pas')" class="btn btn-warning">PAS</button>
+            </td>
             <td class="view-message text-right">
+                <button  onclick="tryelse1(<?=$url?> , 'gelmedi')" class="btn btn-danger">GELMEDİ</button>
             </td>
 
             <?php
@@ -89,8 +92,6 @@
             </div>
             <div class="modal-body">
                 <a data-dismiss="modal" data-toggle="modal" href="#resultMenu"><button type="button" data-target="#resultMenu" id="secim_yapar" class="btn btn-primary">Seçim Yap</button></a>
-                <button data-dismiss="modal" id="secim_pas" class="btn btn-warning">PAS</button>
-                <button id="secim_gelmedi" data-dismiss="modal" class="btn btn-danger">GELMEDİ</button>
 
             </div>
         </div>
@@ -122,14 +123,18 @@
         $("#secim_gelmedi").on("click", function(){ tryelse1(url, "gelmedi"); });
     }
     function tryelse(url, id) {
+
+
         $.get("index.php", {"url": url, "adres": id}, function (returnData, status) {
             //alert('Status ' + status + ' The server said ' + returnData);
             //$('#test123123').detach();
             $('#test123').replaceWith($(returnData).find("#test123"));
             $('#test321').replaceWith($(returnData).find("#test321"));
         });
+
     }
     function tryelse1(url, id) {
+
         $.get("index.php", {"url": url, "durum": id}, function (returnData, status) {
             //alert('Status ' + status + ' The server said ' + returnData);
             //$('#test123123').detach();
