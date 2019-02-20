@@ -24,10 +24,11 @@ if(isset($_GET["url"])) {
         $old_adres = $mquery->bring_adres ($doctor_variable[0]["doctor_old_place"]);
 }
 
-    if(isset($_GET["secim"]))
-        $select_durum = trim($_GET["secim"]);
-    else
-        $select_durum = 0 ;
+if(isset($_GET["secim"])){
+  $_SESSION["secim"] = trim($_GET["secim"]);
+} else{
+  $_SESSION["secim"] = 0;
+}
 
 $all_doctor = $mquery->all_doctor ();
 $all_adres = $mquery->all_adres ();
