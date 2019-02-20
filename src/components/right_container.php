@@ -46,20 +46,17 @@
 
 
            <?php if(isset($url)){ ?>
-            <a href="/write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
+            <a href="write/<?=$url?>"> <button class="btn btn-success">Çıktı Al</button></a>
             <?php } ?>
-            <a href="all/all""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
+            <a href="report/report_excel.php""><button class="btn btn-danger">Tüm Doktorların Çıktısı</button></a>
         </div>
     <div class="inbox-body">
-        <table class="table table-inbox table-hover">
+        <table class="table  table-inbox table-hover">
             <tbody>
             <td class="view-message dont-show">Sıra   Adres</td>
             <td class="view-message"> </td>
             <td class="view-message inbox-small-cells"></td>
             <td class="view-message text-right">
-                <?php if(isset($url)){ ?>
-
-                <?php }?>
             </td>
 
             <?php
@@ -76,6 +73,9 @@
                 <?php $m++ ; } ?>
             </tbody>
         </table>
+        
+        
+        
     </div>
 </aside>
 <div class="modal" tabindex="-1" role="dialog" id="selectionMenu">

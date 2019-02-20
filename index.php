@@ -12,19 +12,22 @@ if(isset($_GET["url"])) {
         exit;
     }
 
-
     if ( isset( $_GET["durum"] ) )
         $mquery->doctor_durum ($url , $_GET["durum"]);
 
     if(isset($_GET["adres"]) && is_numeric ($_GET["adres"]))
         $mquery->doctor_adres ($url,$_GET["adres"]);
 
-
     $doctor_variable = $mquery->bring_doctor ( $url );
 
     if($doctor_variable[0]["doctor_old_place"]!=0)
         $old_adres = $mquery->bring_adres ($doctor_variable[0]["doctor_old_place"]);
 }
+
+    if(isset($_GET["secim"]))
+        $select_durum = trim($_GET["secim"]);
+    else
+        $select_durum = 0 ;
 
 $all_doctor = $mquery->all_doctor ();
 $all_adres = $mquery->all_adres ();

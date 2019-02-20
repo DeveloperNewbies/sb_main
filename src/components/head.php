@@ -34,23 +34,26 @@
         .mail-box .sm-side {
             background: none repeat scroll 0 0 #e5e8ef;
             border-radius: 4px 0 0 4px;
-            width: 25%;
+            width: 50%;
         }
         .mail-box .lg-side {
             background: none repeat scroll 0 0 #fff;
-            border-radius: 0 4px 4px 0;
-            width: 75%;
+            
+            width: 60%;
+            
         }
         .mail-box .sm-side .user-head {
             background: none repeat scroll 0 0 #00a8b3;
-            border-radius: 4px 0 0;
+            border:2px solid dodgerblue;
+            border-radius: 25px;
             color: #fff;
             min-height: 80px;
             padding: 10px;
+            
         }
         .user-head .inbox-avatar {
             float: left;
-            width: 65px;
+            width: 50px;
         }
         .user-head .inbox-avatar img {
             border-radius: 4px;
@@ -158,7 +161,8 @@
         }
         .inbox-head {
             background: none repeat scroll 0 0 #41cac0;
-            border-radius: 0 4px 0 0;
+            border-radius:20px;
+            border:2px solid dodgerblue ;
             min-height: 80px;
             padding: 20px;
         }
