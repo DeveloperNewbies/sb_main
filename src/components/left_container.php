@@ -16,29 +16,34 @@
         <td>  <button class="btn btn-danger" >Gelmeyenler </button> </td>
         <td>  <button class="btn btn-success" >Adres Seçenler</button>  </td>
    </div>
-    <ul class="inbox-nav inbox-divider">
-        <?php
-        foreach ($all_doctor as $value) {
-            $name = $value["doctor_var"]["name"];
-            $puan = $value["doctor_var"]["started_date"];
-            $selection = $value["doctor_selection"];
-            if ( $_SESSION["secim"] == 0 ) {
-                if ( $selection != 1 ) {
-                    ?>
-                    <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
-                        <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?> </a>
-                    </li>
-                    <?php
-                }
-            } else if ( $_SESSION["secim"] == $selection ) {
-                ?>
+   <ul class="inbox-nav inbox-divider">
+       <?php
+       foreach ($all_doctor as $value) {
+           $name = $value["doctor_var"]["name"];
+           $puan = $value["doctor_var"]["started_date"];
+           $selection = $value["doctor_selection"];
+           if(isset($value["doctor_old_place"]))
+               $doctor_old_adres = $mquery->bring_adres ($value["doctor_old_place"]);
+           else
+               $doctor_old_adres = "-";
 
-                <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
-                    <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?> </a>
-                </li>
-                <?php
-            }
-        }
-                 ?>
-    </ul>
+           if ( $_SESSION["secim"] == 0 ) {
+               if ( $selection != 1 ) {
+                   ?>
+                   <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
+                       <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?>- <?= $name ?>  <span style="float: right;"><?=$doctor_old_adres[0]["address"]["adres"]?></span> </a>
+                   </li>
+                   <?php
+               }
+           } else if ( $_SESSION["secim"] == $selection ) {
+               ?>
+
+               <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
+                   <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?> </a>
+               </li>
+               <?php
+           }
+       }
+                ?>
+   </ul>
 </aside>
