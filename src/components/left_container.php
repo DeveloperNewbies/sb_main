@@ -9,6 +9,14 @@
     <div class="user-head">
         <?php require_once ($rota."src/components/head_left_title.php")?>
     </div>
+<div class="col-md-1"></div>
+    <div class="btn-group btn-group-lg">
+   <td> <button class="btn btn-primary" >Sıra Bekleyenler</button>   </td>
+    <td>  <button class="btn btn-warning" >Pas  Geçenler</button>  </td>
+    <td>  <button class="btn btn-danger" >Gelmeyenler </button> </td>
+    <td>  <button class="btn btn-success" >Adres Seçenler</button>  </td>
+   
+   </div>
     <ul class="inbox-nav inbox-divider">
         <?php
         foreach ($all_doctor as $value){
