@@ -1,4 +1,5 @@
 <?php
+session_start();
 $rota ="";
 require_once ( $rota . "db/query.php" );
 $mquery = new Query();
@@ -27,7 +28,8 @@ if(isset($_GET["url"])) {
 if(isset($_GET["secim"])){
   $_SESSION["secim"] = trim($_GET["secim"]);
 } else{
-  $_SESSION["secim"] = 0;
+    if(!isset($_SESSION["secim"]))
+        $_SESSION["secim"] = 0;
 }
 
 $all_doctor = $mquery->all_doctor ();
