@@ -19,8 +19,20 @@
            $name = $value["doctor_var"]["name"];
            $puan = $value["doctor_var"]["started_date"];
            $selection = $value["doctor_selection"];
-           if(isset($value["doctor_old_place"]))
-               $doctor_old_adres = $mquery->bring_adres ($value["doctor_old_place"]);
+           if(isset($value["doctor_old_place"])){
+               if(($mquery->bring_adres ($value["doctor_old_place"])))
+               {
+                   $doctor_old_adres = ($mquery->bring_adres ($value["doctor_old_place"]));
+                   $doctor_old_adres = $doctor_old_adres[0]["address"]["adres"];
+               }else
+                   {
+                       $doctor_old_adres = "-";
+                   }
+
+
+
+           }
+
            else
                $doctor_old_adres = "-";
 
@@ -28,7 +40,7 @@
                ?>
                <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
                    <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?>
-                       <span style="float: right;"><?=$doctor_old_adres[0]["address"]["adres"]?></span>
+                       <span style="float: right;"><?=$doctor_old_adres?></span>
                    </a>
                </li>
                <?php
