@@ -4,7 +4,7 @@ $rota ="";
 require_once ( $rota . "db/query.php" );
 $mquery = new Query();
 $site_name = "localhost";
-
+$url = false;
 if(isset($_GET["url"])) {
 
     $url = (is_numeric($_GET["url"])) ? $_GET["url"] : false;
