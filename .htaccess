@@ -12,7 +12,6 @@ RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)$     ./demo_dr/index.php?url=$1&adres=$
 RewriteRule ^([a-z0-9_-]+)$                   ./demo_dr/index.php?url=$1
 
 
-
 #hata alması durumunda yönlendirme yazdırılır
 #ErrorDocument 404 http://localhost/errors/404.html
 #ErrorDocument 403 http://localhost/errors/403.html

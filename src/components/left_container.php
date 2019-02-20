@@ -24,18 +24,12 @@
            else
                $doctor_old_adres = "-";
 
-           if ( $_SESSION["secim"] == 0 ) {
-               if ( $selection != 1 ) {
-                   ?>
-                   <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
-                       <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?>- <?= $name ?>  <span style="float: right;"><?=$doctor_old_adres[0]["address"]["adres"]?></span> </a>
-                   </li>
-                   <?php
-               }
-           } else if ( $_SESSION["secim"] == $selection ) {
+           if ( $_SESSION["secim"] == $selection ) {
                ?>
                <li class="<?php echo ( $value['doctor_id'] == $url ) ? 'active' : ''; ?>">
-                   <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?> </a>
+                   <a href="<?= $value['doctor_id'] ?>"><?= $value["must"] ?> - <?= $name ?>
+                       <span style="float: right;"><?=$doctor_old_adres[0]["address"]["adres"]?></span>
+                   </a>
                </li>
                <?php
            }
