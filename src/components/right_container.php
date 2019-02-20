@@ -122,14 +122,18 @@
         $("#secim_gelmedi").on("click", function(){ tryelse1(url, "gelmedi"); });
     }
     function tryelse(url, id) {
+
+
         $.get("index.php", {"url": url, "adres": id}, function (returnData, status) {
             //alert('Status ' + status + ' The server said ' + returnData);
             //$('#test123123').detach();
             $('#test123').replaceWith($(returnData).find("#test123"));
             $('#test321').replaceWith($(returnData).find("#test321"));
         });
+
     }
     function tryelse1(url, id) {
+
         $.get("index.php", {"url": url, "durum": id}, function (returnData, status) {
             //alert('Status ' + status + ' The server said ' + returnData);
             //$('#test123123').detach();

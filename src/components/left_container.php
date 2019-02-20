@@ -11,10 +11,10 @@
     </div>
 <div class="col-md-1"></div>
     <div class="btn-group btn-group-lg">
-        <td> <button class="btn btn-primary" >Sıra Bekleyenler</button>   </td>
-        <td>  <button class="btn btn-warning" >Pas  Geçenler</button>  </td>
-        <td>  <button class="btn btn-danger" >Gelmeyenler </button> </td>
-        <td>  <button class="btn btn-success" >Adres Seçenler</button>  </td>
+        <td> <button onclick="refreshLeft('0')" class="btn btn-primary" >Sıra Bekleyenler</button>   </td>
+        <td>  <button onclick="refreshLeft('2')" class="btn btn-warning" >Pas  Geçenler</button>  </td>
+        <td>  <button onclick="refreshLeft('3')" class="btn btn-danger" >Gelmeyenler </button> </td>
+        <td>  <button onclick="refreshLeft('1')" class="btn btn-success" >Adres Seçenler</button>  </td>
    </div>
     <ul class="inbox-nav inbox-divider">
         <?php
@@ -42,3 +42,12 @@
                  ?>
     </ul>
 </aside>
+<script>
+    function refreshLeft(url) {
+        $.get("index.php", {"secim": url }, function (returnData, status) {
+            //alert('Status ' + status + ' The server said ' + returnData);
+            //$('#test123123').detach();
+            $('#test321').replaceWith($(returnData).find("#test321"));
+        });
+    }
+</script>
