@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <body>
@@ -6,7 +5,7 @@
 <form action="import_excel.php" method="post" enctype="multipart/form-data">
     Select XLSX to upload:
     <input type="file" name="item-image-" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
+    <input type="submit" value="Kaydet" name="submit">
 </form>
 
 </body>
@@ -57,6 +56,7 @@ if(isset($_POST['submit']))
 
 // including library to the code
 require_once ('excel/Classes/PHPExcel/IOFactory.php');
+require_once("../db/query.php");
 
 $inputFileName = 'uploads/example.xlsx';
 
@@ -108,10 +108,41 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
         // we add data to the DB using sql query.
         array_push($dr_val[$i-2], ($value=="")?"-":$value);
     }
-
+    
 }
 
-?>
+$query = new Query();
+
+ foreach ($dr_val as $item){ 
+        $adres = array(
+            "tsm"=>$item[8],
+            "asm"=>$item[9],
+            "adres"=>$item[9],
+            "kadro"=>$item[11],
+            "birim"=>$item[10]
+        );
+        $doctor = array(
+        "bent"=>$item[1],
+        "ön_söz_tarih"=>$item[2],
+        "tc"=>$item[3],
+        "name"=>$item[4],
+        "brans"=>$item[5],
+        "ünvan"=>$item[6],
+        );
+
+        $all_doc = $query->all_doctor ();
+
+        if(count ($all_doc) == 0 )
+            $must = 1;
+        else
+        $must = $all_doc[count ($all_doc)-1]["must"]+1;
+
+    $adres_id = $query->create_adres($adres , $must);
+    $query->create_doctor($doctor ,$item[7] ,  $adres_id , $must);
+ }
+  
+    ?>
+
 <style>
     table {
         font-family: arial, sans-serif;

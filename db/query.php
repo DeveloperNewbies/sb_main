@@ -6,6 +6,7 @@
  * Time: 18:55
  */
 
+
   class Query
   {
 
@@ -49,18 +50,19 @@
       }
 
       public function doctor_adres($id,$adres){
-      try{
-          $query =$this->bring_doctor ($id);
-              if($query[0]["doctor_old_place"]!=0)
-                $this->update_adres ($query[0]["doctor_old_place"],"adres_select",0);
+          try{
+              $query =$this->bring_doctor ($id);
+                  if($query[0]["doctor_old_place"]!=0)
+                    $this->update_adres ($query[0]["doctor_old_place"],"adres_select",0);
 
-          $this->update_doctor ($id,"doctor_old_place",$adres);
-          $this->update_doctor ($id,"doctor_selection","1");
-          $this->update_adres ($adres,"adres_select",$id);
-             return true;
-      }catch (PDOException $e ){
-          return false;
-      }
+              $this->update_doctor ($id,"doctor_old_place",$adres);
+              $this->update_doctor ($id,"doctor_selection","1");
+              $this->update_adres ($adres,"adres_select",$id);
+              $this->log_save ($id." id li doktorun adresi ".$adres." olarak değişti ");
+                 return true;
+          }catch (PDOException $e ){
+              return false;
+          }
       }
 
       public function doctor_durum($id,$durum){
@@ -70,10 +72,37 @@
               $durum = 3;
          try{
              $this->update_doctor ($id,"doctor_selection",$durum);
+             $this->log_save ($id." id li doktorun durumu ".$durum." olarak değişti");
              return true;
          }catch (PDOException $e){
              return false;
          }
+      }
+
+      public function doctor_var_num(){
+          $data = array(
+              "0"=>0,
+              "1"=>0,
+              "2"=>0,
+              "3"=>0
+             );
+
+             $res_data = $this->all_doctor () ; 
+        
+             if($res_data != false){
+                 foreach ($res_data as $value) {
+                     if($value["doctor_selection"] == 0 )
+                       $data["0"] = $data["0"]+1;
+                       if($value["doctor_selection"] == 1 )
+                       $data["1"] = $data["1"]+1;
+                       if($value["doctor_selection"] == 2 )
+                       $data["2"] = $data["2"]+1;
+                       if($value["doctor_selection"] == 3 )
+                       $data["3"] = $data["3"]+1;
+                 }
+             }
+          
+             return $data;
       }
 
 
@@ -98,21 +127,13 @@
       }
 
 
-      public function create_doctor ($var , $place = 0 )
+      public function create_doctor ($var , $place = 0 , $old_place = 0 , $must  )
       {
-          $old_place = 0 ;
           $selection = 0 ;
-          $id = rand(1,9).rand(1,9).rand(1,9).rand(1,9);
-          $query = $this->all_doctor ();
-
-          if(count ($query) == 0 )
-              $must = 1;
-          else
-          $must = $query[count ($query)-1]["must"]+1;
-
           $var = json_encode ($var,JSON_UNESCAPED_UNICODE);
           try {
-              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,hizmet_puan,doctor_old_place,doctor_selection) VALUES ('$must','$id','$var','$place','$old_place','$selection')" );
+              $sorgu = $this->conn->exec ( "INSERT INTO doctor (must,doctor_id,doctor_var,hizmet_puan,doctor_old_place,doctor_selection) VALUES ('$must','$must','$var','$place','$old_place','$selection')" );
+              $this->log_save ($must." id li doktor istendi");
               return true;
           } catch (PDOException $e) {
               return false;
@@ -126,7 +147,8 @@
           $adres = json_encode ($adres ,JSON_UNESCAPED_UNICODE );
           try {
               $sorgu = $this->conn->exec ( "INSERT INTO adres (id,address,adres_select) VALUES ('$id','$adres','$adres_select')" );
-              return true;
+              $this->log_save ($id." id li adres eklendi");
+              return $id;
           } catch (PDOException $e) {
               return false;
           }
@@ -140,6 +162,7 @@
 
           try {
               $sorgu = $this->conn->exec ( "UPDATE doctor SET {$where_update} = {$value} WHERE doctor_id='$doctor_num'" );
+              $this->log_save ($doctor_num." id li doktorun ".$where_update." sütunu güncellendi");
               return true;
           } catch (PDOException $e) {
               return $e;
@@ -153,6 +176,7 @@
 
           try {
               $sorgu = $this->conn->exec ( "UPDATE adres SET {$where_update}= {$value} WHERE id='$id'" );
+              $this->log_save ($id." id li adresin  ".$where_update." sütunu güncellendi");
               return true;
           } catch (PDOException $e) {
               return false;
@@ -201,8 +225,17 @@
           } catch (PDOException $err) {
               return false;
           }
-
           return $data;
+      }
+
+
+      private function log_save($tip = "", $ip= "0"){
+
+          try {
+              $sorgu = $this->conn->exec ( "INSERT INTO log_save (tip,user_ip) VALUES ('$tip', '$ip')" );
+          } catch (PDOException $e) {
+
+          }
       }
 
       function __destruct()

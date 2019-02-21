@@ -81,9 +81,18 @@ for ($m = 0 ; $m < count ($all_doctor) ; $m++){
            $content[$m][5] = "Pas Geçti";
        else if($all_doctor[$m]["doctor_selection"] == 3)
            $content[$m][5] = "Gelmedi";
-    $content[$m][6] = $all_doctor[$m]["doctor_var"]["ahb"];
-    $content[$m][7] = $all_doctor[$m]["doctor_var"]["asm"];
-    $content[$m][8] = $all_doctor[$m]["doctor_var"]["tsm"];
+
+        $adres = $mquery->bring_adres ($all_doctor[$m]["doctor_old_place"]);
+        if($adres !== false){
+    $content[$m][6] = (isset($adres[0]["address"]["ahb"])) ? $adres[0]["address"]["ahb"] : "-";
+    $content[$m][7] = (isset($adres[0]["address"]["asm"])) ? $adres[0]["address"]["asm"] : "-";
+    $content[$m][8] = (isset($adres[0]["address"]["tsm"])) ? $adres[0]["address"]["tsm"] : "-";
+        }else {
+            $content[$m][6] = "";
+            $content[$m][7] = "";
+            $content[$m][8] = "";
+        }
+
     if($all_doctor[$m]["doctor_old_place"] != 0){
         $adres = $mquery->bring_adres ($all_doctor[$m]["doctor_old_place"]);
         $adres = $adres[0]["address"]["adres"];
