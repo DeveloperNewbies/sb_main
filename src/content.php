@@ -130,9 +130,9 @@
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Doktor Listesi</h6>
             <div class="dropdown no-arrow">
-             <button class="btn btn-warning" onclick="doctor_secim('pas')" >PAS GEÇ</button>
+              <button class="btn btn-warning" onclick="doctor_secim('pas')" >PAS GEÇ</button>
              <button class="btn btn-danger" onclick="doctor_secim('gelmedi')" >GELMEDİ</button>
-              
+            
             </div>
           </div>
           <!-- Card Body -->
@@ -140,7 +140,6 @@
           <?php
             foreach ($all_doctor as $value) {
                 $name = $value["doctor_var"]["name"];
-                $puan = $value["doctor_var"]["started_date"];
                 $selection = $value["doctor_selection"];
                 if(isset($value["doctor_old_place"]))
                     $doctor_old_adres = $mquery->bring_adres ($value["doctor_old_place"]);

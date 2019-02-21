@@ -22,6 +22,12 @@ if(isset($_POST["add_ok"]))
     else
          $durum = false ;
 
+         if(Strlen($_POST["sicil"])>0)
+           $sicil = $_POST["sicil"];
+         else
+           $durum = false;
+
+
     if(isset($_POST["status"]))
         $durum = $_POST["status"];
     else
@@ -42,6 +48,11 @@ if(isset($_POST["add_ok"]))
     else
          $durum = false;
 
+     if (isset($_POST["asm"]))
+      $asm = $_POST["asm"] ;
+    else
+      $durum = false;
+
     if(isset($_POST["before_date"]))
       $before_date = $_POST["before_date"];
     else
@@ -61,15 +72,28 @@ if(isset($_POST["add_ok"]))
             "brans"=>$caption,
             "status"=>$durum,
             "ahb"=>"",
-            "asm"=>"",
-            "tsm"=>$tsm,
             "sicil"=>"",
             "contrat_date"=>$before_date,
-            "bend"=>$bend
+            "bend"=>$bend,
+            "sicil"=>$sicil,
         );
         $hizmet_puan = $puan ;
 
-        $query->create_doctor($var , $hizmet_puan);
+        $adres_var = array(
+            "adres"=>$asm,
+            "asm"=>$asm,
+            "tsm"=>$tsm,
+        );
+
+        $all_doc = $query->all_doctor ();
+
+        if(count ($all_doc) == 0 )
+            $must = 1;
+        else
+        $must = $all_doc[count ($all_doc)-1]["must"]+1;
+
+        $adres_id = $query->create_adres($adres_var , $must);
+        $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
     }else{
         echo "Geçerli Bilgiler giriniz ! ";
     }
@@ -109,6 +133,22 @@ if(isset($_POST["add_ok"]))
                 <h1 class="display-4">Yeni Doktor Ekle</h1>
                 <hr>
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label >Sicil No</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+
+                        </div>
+                        <input type="text" name="sicil" class="form-control"
+                               placeholder="Sicil Nuamarsı" required>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -185,7 +225,7 @@ if(isset($_POST["add_ok"]))
                         <div class="input-group-addon" style="width: 2.6rem">
 
                         </div>
-                        <input type="number" name="hizmet_puan" class="form-control"
+                        <input type="text" name="hizmet_puan" class="form-control"
                                placeholder="Hizmet Puanı" required>
                     </div>
                 </div>
@@ -203,6 +243,22 @@ if(isset($_POST["add_ok"]))
                         </div>
                         <input type="text" name="tsm" class="form-control"
                                placeholder="TSM ADI" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label >ASM</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+
+                        </div>
+                        <input type="text" name="asm" class="form-control"
+                               placeholder="ASM ADI" required>
                     </div>
                 </div>
             </div>
@@ -233,6 +289,7 @@ if(isset($_POST["add_ok"]))
                     <select name="bend">
                         <option class="dropdown-item" value="">Bend Seç</option>
                         <option class="dropdown-item" value="a">A</option>
+                        <option class="dropdown-item" value="a1">A1</option>
                         <option class="dropdown-item" value="b1">B1</option>
                         <option class="dropdown-item" value="b2">B2</option>
                         <option class="dropdown-item" value="c">C</option>
