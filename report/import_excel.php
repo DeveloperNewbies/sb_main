@@ -9,7 +9,7 @@
 
 <div class="container">
 	<form id="fileUploadForm" 
-    action="/aktar"
+    action="./aktar"
       enctype="multipart/form-data" method="post">
     <fieldset>
         <div class="form-horizontal">
@@ -27,7 +27,7 @@
                 </div>
             </div>                        
         </div>
-    </fieldset>    
+    </fieldset>
 </form>
 </div>
 
@@ -129,6 +129,9 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
     for ($j = 0; $j < $nColumn; $j++) {
         $value = $sheet->getCellByColumnAndRow($j, $i)->getValue();
         // we add data to the DB using sql query.
+        if($j==7) {
+           $value = ($value != "") ? date('d-m-Y', PHPExcel_Shared_Date::ExcelToPHP($value)) : "";
+        }
         array_push($dr_val[$i-2], ($value=="")?"-":$value);
     }
     
@@ -182,8 +185,5 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
         }
         
 }
-
-
-
   
     ?>

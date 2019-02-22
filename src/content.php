@@ -95,7 +95,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-header">Doktor İşlemleri</div>
-                <a class="dropdown-item" href="/write/<?=$doctor_variable[0]["doctor_id"]?>">Çıktı Al</a>
+                <a id="doctor_link" class="dropdown-item" href="./write/<?=$doctor_variable[0]["doctor_id"]?>">Çıktı Al</a>
                
               </div>
             </div>
@@ -251,12 +251,12 @@
 ////////////////////
     function doctor_select(num){
       if(num == "tuna"){
-        $.get("/json", {"":"" }, function (returnData, status) {
+        $.get("./json", {"":"" }, function (returnData, status) {
           let json = $.parseJSON(returnData);
            doctor_table(json,num);
            });
       }else{
-        $.get("/json", {"url": num }, function (returnData, status) {
+        $.get("./json", {"url": num }, function (returnData, status) {
           let json = $.parseJSON(returnData);
            doctor_table(json,num);
            });
@@ -264,11 +264,13 @@
     }
 
     function doctor_table(json,num){
-      let doctor_table_title = json["must"]+"-"+"("+json["doctor_var"]["brans"]+") "+json["doctor_var"]["name"]; 
+      let brans = (json["doctor_var"]["brans"] === undefined) ? "-" : json["doctor_var"]["brans"];
+      let doctor_table_title = json["must"]+"-"+"("+brans+") "+json["doctor_var"]["name"]; 
       let tc = "T.C: "+ json["doctor_var"]["tc"];
       let hizmet = "Hizmet Puanı:"+json["hizmet_puan"];
       let db_ad =  (json["adres"] === undefined) ? "-" : json["adres"];
       let adres = "Seçili Adres: "+ db_ad;
+
         $("#tc").html(tc);
         $("#doctor_card_title").html(doctor_table_title);
         $("#hizmet_puan").html(hizmet);
@@ -277,6 +279,8 @@
         $.get("index.php", {"":""}, function (returnData, status) {
               $('#doctor_body').replaceWith($(returnData).find("#doctor_body"));
           });
+    
+        $("#doctor_link").attr("href", json["must"]);
     }
 </script>
 

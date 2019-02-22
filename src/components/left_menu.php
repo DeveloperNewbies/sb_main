@@ -3,7 +3,7 @@
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="http://www.ay-soft.com/">
   <div class="sidebar-brand-icon">
-    <img src="/img/logo.png" alt="AY_SOFT" width="105" height="50" >
+    <img src="./img/logo.png" alt="AY_SOFT" width="105" height="50" >
   </div>
   <div class="sidebar-brand-text mx-3">AY-SOFT </div>
 </a>
@@ -13,7 +13,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-  <a class="nav-link" href="/">
+  <a class="nav-link" href="./">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Hekim Seçme Sistemi</span></a>
 </li>
@@ -35,11 +35,11 @@
   </a>
   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      
-      <a class="collapse-item" href="/doctor">Doktor Ekleme</a>
-      <a class="collapse-item" href="/adres">Adres Ekleme</a>
-      <a class="collapse-item" href="/aktar">Doktor exel Ekleme</a>
-      <a class="collapse-item" href="/adresekle">Adres exel Ekleme</a>
+
+      <a class="collapse-item" href="./doctor">Doktor Ekleme</a>
+      <a class="collapse-item" href="./adres">Adres Ekleme</a>
+      <a class="collapse-item" href="./aktar">Doktor exel Ekleme</a>
+      <a class="collapse-item" href="./adresekle">Adres exel Ekleme</a>
    
     </div>
   </div>
@@ -56,7 +56,7 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-  <a class="nav-link" href="/istatistik">
+  <a class="nav-link" href="./istatistik">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>İstatistik</span></a>
 </li>

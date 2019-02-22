@@ -81,7 +81,6 @@ if(isset($_POST["add_ok"]))
         $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
         $adres_id = $query->create_adres($adres_var , $must);
-
         $var = array (
             "name"=>$username,
             "started_date"=>"",
@@ -134,7 +133,7 @@ if(isset($_POST["add_ok"]))
         <strong><?=$username?></strong> Doktor eklendi.
         </div>
         <?php } ?>
-    <form class="form-horizontal" method="post" action="doctor" >
+    <form class="form-horizontal" method="post" action="./doctor" >
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
