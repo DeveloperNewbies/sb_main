@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
+    <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
 <body>
 
-<form action="/aktar" method="post" enctype="multipart/form-data">
-   Doktorlar dosyasını ekleyiniz 
-    <input type="file" name="item-image-" id="fileToUpload">
-    <input type="submit" value="Kaydet" name="submit">
+<div class="container">
+	<form id="fileUploadForm" 
+    action="/aktar"
+      enctype="multipart/form-data" method="post">
+    <fieldset>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                <label class="control-label col-md-2 text-right" for="filename"><span> Doktorlar dosyasını ekleyiniz </span></label>
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="file" id="uploadedFile" name="item-image-" class="form-control form-control-sm" >
+                        <div class="input-group-btn">
+                            <input type="submit" value="Kaydet" name="submit" class="rounded-0 btn btn-primary">
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>                        
+        </div>
+    </fieldset>
 </form>
+</div>
+
 
 </body>
 </html>
@@ -113,17 +137,7 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
         $query = new Query();
 
         foreach ($dr_val as $item){ 
-            $var = array (
-                "name"=>(isset($item[3])) ? $item[3] : "-",
-                "started_date"=>"",
-                "tc"=>(isset($item[2])) ? $item[2] : "-",
-                "brans"=>(isset($item[5])) ? $item[5] : "-",
-                "status"=>"-",
-                "ahb"=>"",
-                "sicil"=>(isset($item[1])) ? $item[1] : "-",
-                "contrat_date"=>(isset($item[7])) ? $item[7] : "-",
-                "bend"=>(isset($item[6])) ? $item[6] : "-",
-            );
+           
 
             $hizmet_puan = $item[4] ;
 
@@ -148,14 +162,25 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
                 
             }
 
+            $var = array (
+                "name"=>(isset($item[3])) ? $item[3] : "-",
+                "started_date"=>"",
+                "tc"=>(isset($item[2])) ? $item[2] : "-",
+                "brans"=>(isset($item[5])) ? $item[5] : "-",
+                "status"=>"-",
+                "ahb"=>"",
+                "sicil"=>(isset($item[1])) ? $item[1] : "-",
+                "contrat_date"=>(isset($item[7])) ? $item[7] : "-",
+                "bend"=>(isset($item[6])) ? $item[6] : "-",
+                "before_address"=>(isset($adres_id)) ? $adres_id : "-"
+            );
+            
+
           
             $query->create_doctor($var ,$hizmet_puan , (isset( $adres_id)) ?  $adres_id : 0 , $must);
             unset($adres_id );
         }
         
 }
-
-
-
   
     ?>

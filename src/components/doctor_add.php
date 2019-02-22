@@ -65,18 +65,6 @@ if(isset($_POST["add_ok"]))
 
 
     if($durum == true){
-        $var = array (
-            "name"=>$username,
-            "started_date"=>"",
-            "tc"=>$tc,
-            "brans"=>$caption,
-            "kadro_yer"=>$durum,
-            "ahb"=>"",
-            "sicil"=>"",
-            "contrat_date"=>$before_date,
-            "bend"=>$bend,
-            "sicil"=>$sicil,
-        );
         $hizmet_puan = $puan ;
 
         $adres_var = array(
@@ -93,6 +81,20 @@ if(isset($_POST["add_ok"]))
         $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
         $adres_id = $query->create_adres($adres_var , $must);
+        $var = array (
+            "name"=>$username,
+            "started_date"=>"",
+            "tc"=>$tc,
+            "brans"=>$caption,
+            "kadro_yer"=>$durum,
+            "ahb"=>"",
+            "sicil"=>"",
+            "contrat_date"=>$before_date,
+            "bend"=>$bend,
+            "sicil"=>$sicil,
+            "before_address"=>$adres_id
+        );
+
         $ad_con = $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
     }else{
         echo "Geçerli Bilgiler giriniz ! ";
