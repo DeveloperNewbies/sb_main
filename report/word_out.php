@@ -82,6 +82,17 @@ if(isset($_GET["write"])){
             //Doktorun hiç Sözleşmesi Olmamışsa
             if($dr_started == "-")
             {
+                //önceki adresi ve tarihi güncelle
+
+                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+                $islem = $doctor[0]["doctor_var"];
+                 
+                $islem["contrat_date"] = date("d-m-Y") ;
+                //önceki adresi 
+                $islem["before_address"] = $dr_adres[0]["id"];
+             $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+
+         
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
                 $templateProcessor->setValue('op-no', "".$op_number);
                 $templateProcessor->setValue('dr-tc', "".$dr_tc);
@@ -94,18 +105,6 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-before', $date_before);
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
-
-
-                //önceki adresi ve tarihi güncelle
-
-                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
-                $doctor[0]["doctor_var"]["contrat_date"] = date("d-m-Y") ;
-                //önceki adresi 
-                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
-                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
-
-             
-
 
 
                 header('Content-Type: application/octet-stream');
@@ -114,6 +113,15 @@ if(isset($_GET["write"])){
             }//Doktorun Sözleşmesi Var Ama Kontratının Süresi 2 Yılı Geçmişse
             elseif ($dr_contract_heap > 23)
             {
+                 //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+                 $islem = $doctor[0]["doctor_var"];
+                 
+                 $islem["contrat_date"] = date("d-m-Y") ;
+                 //önceki adresi 
+                 $islem["before_address"] = $dr_adres[0]["id"];
+              $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+
+
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
                 $templateProcessor->setValue('op-no', "".$op_number);
                 $templateProcessor->setValue('dr-tc', "".$dr_tc);
@@ -127,39 +135,27 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
 
-
-                   //önceki adresi ve tarihi güncelle
-
-                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
-                $doctor[0]["doctor_var"]["contrat_date"] =date("d-m-Y");
-                //önceki adresi 
-                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
-                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
-
-
-
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=sozlesme.docx");
                 $templateProcessor->saveAs('php://output');
             }//Doktorun Eski Sözleşmesi Var Ve Sözleşme Süresini Doldurmamışsa
             else
             {
+                
+            //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+            $islem = $doctor[0]["doctor_var"];
+                 
+            //önceki adresi 
+            $islem["before_address"] = $dr_adres[0]["id"];
+         $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+               
+
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('zeyilname.docx');
                 $templateProcessor->setValue('dr-isim', "".$dr_isim);
                 $templateProcessor->setValue('dr-started', "".$dr_started);
                 $templateProcessor->setValue('dr-oldplace', "".$before_adres);
                 $templateProcessor->setValue('dr-adres', "".$dr_adres);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
-
-
-
-              //adresi güncelle tarih kalsın 
-
-                //önceki adresi 
-                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
-                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
-
-
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=zeyilname.docx");
                 $templateProcessor->saveAs('php://output');

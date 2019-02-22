@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 22 Şub 2019, 00:40:03
+-- Üretim Zamanı: 22 Şub 2019, 20:14:17
 -- Sunucu sürümü: 10.1.36-MariaDB
 -- PHP Sürümü: 7.2.11
 
@@ -58,7 +58,8 @@ CREATE TABLE `doctor` (
 CREATE TABLE `log_save` (
   `count` int(11) NOT NULL,
   `user_ip` varchar(40) COLLATE utf8_turkish_ci NOT NULL,
-  `tip` text COLLATE utf8_turkish_ci NOT NULL
+  `tip` text COLLATE utf8_turkish_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
@@ -91,7 +92,7 @@ ALTER TABLE `log_save`
 -- Tablo için AUTO_INCREMENT değeri `log_save`
 --
 ALTER TABLE `log_save`
-  MODIFY `count` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=265;
+  MODIFY `count` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

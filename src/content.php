@@ -280,7 +280,7 @@
               $('#doctor_body').replaceWith($(returnData).find("#doctor_body"));
           });
     
-        $("#doctor_link").attr("href", json["must"]);
+        $("#doctor_link").attr("href", "write/"+json["must"]);
     }
 </script>
 
