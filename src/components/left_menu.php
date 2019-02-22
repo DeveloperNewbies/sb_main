@@ -1,9 +1,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-  <div class="sidebar-brand-icon rotate-n-15">
-    <i class="fas fa-laugh-wink"></i>
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="http://www.ay-soft.com/">
+  <div class="sidebar-brand-icon">
+    <img src="/img/logo.png" alt="AY_SOFT" width="105" height="50" >
   </div>
   <div class="sidebar-brand-text mx-3">AY-SOFT </div>
 </a>
@@ -13,7 +13,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-  <a class="nav-link" href="index.html">
+  <a class="nav-link" href="/">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Hekim Seçme Sistemi</span></a>
 </li>
@@ -39,6 +39,7 @@
       <a class="collapse-item" href="/doctor">Doktor Ekleme</a>
       <a class="collapse-item" href="/adres">Adres Ekleme</a>
       <a class="collapse-item" href="/aktar">Doktor exel Ekleme</a>
+      <a class="collapse-item" href="/adresekle">Adres exel Ekleme</a>
    
     </div>
   </div>
@@ -55,14 +56,14 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="/istatistik">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>İstatistik</span></a>
 </li>
 <hr class="sidebar-divider">
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="all/all">
     <i class="fas fa-fw fa-table"></i>
     <span>Tüm Doktor Çıktısı</span></a>
 </li>

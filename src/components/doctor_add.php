@@ -65,18 +65,6 @@ if(isset($_POST["add_ok"]))
 
 
     if($durum == true){
-        $var = array (
-            "name"=>$username,
-            "started_date"=>"",
-            "tc"=>$tc,
-            "brans"=>$caption,
-            "status"=>$durum,
-            "ahb"=>"",
-            "sicil"=>"",
-            "contrat_date"=>$before_date,
-            "bend"=>$bend,
-            "sicil"=>$sicil,
-        );
         $hizmet_puan = $puan ;
 
         $adres_var = array(
@@ -93,7 +81,22 @@ if(isset($_POST["add_ok"]))
         $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
         $adres_id = $query->create_adres($adres_var , $must);
-        $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
+
+        $var = array (
+            "name"=>$username,
+            "started_date"=>"",
+            "tc"=>$tc,
+            "brans"=>$caption,
+            "kadro_yer"=>$durum,
+            "ahb"=>"",
+            "sicil"=>"",
+            "contrat_date"=>$before_date,
+            "bend"=>$bend,
+            "sicil"=>$sicil,
+            "before_address"=>$adres_id
+        );
+
+        $ad_con = $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
     }else{
         echo "Geçerli Bilgiler giriniz ! ";
     }
@@ -126,6 +129,11 @@ if(isset($_POST["add_ok"]))
     </style>
 </head>
 <div class="container">
+        <?php if(isset($ad_con) && $ad_con == true){ ?>
+            <div class="alert alert-success">
+        <strong><?=$username?></strong> Doktor eklendi.
+        </div>
+        <?php } ?>
     <form class="form-horizontal" method="post" action="doctor" >
         <div class="row">
             <div class="col-md-3"></div>
@@ -185,7 +193,7 @@ if(isset($_POST["add_ok"]))
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label >Durumu</label>
+                <label >Kadro Yeri</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -194,7 +202,7 @@ if(isset($_POST["add_ok"]))
 
                         </div>
                         <input type="text" name="status" class="form-control"
-                               placeholder="Durumu" required>
+                               placeholder="Kadro Yeri" required>
                     </div>
                 </div>
             </div>

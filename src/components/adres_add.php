@@ -39,7 +39,7 @@ if(isset($_POST["sub"])){
             "dhy"=>0,
             "ahb"=>$ahb
         );
-        $query->create_adres ($var);
+        $ad_con = $query->create_adres ($var);
     }else echo "Hatalı Bilgiler Girdiniz ? ";
 }
 ?>
@@ -68,6 +68,11 @@ if(isset($_POST["sub"])){
     </style>
 </head>
 <div class="container">
+      <?php if(isset($ad_con) && $ad_con != false){ ?>
+            <div class="alert alert-success">
+        <strong><?=$asm?></strong> eklendi.
+        </div>
+        <?php } ?>
     <form class="form-horizontal" method="post" action="adres" >
         <div class="row">
             <div class="col-md-3"></div>

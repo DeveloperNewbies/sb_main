@@ -1,17 +1,3 @@
- <!-- Scroll to Top Button-->
- <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-  <div class="container my-auto">
-    <div class="copyright text-center my-auto">
-      <span>Copyright &copy; Ay-SOFT  2019</span>
-    </div>
-  </div>
-</footer>
-<!-- End of Footer -->
 
  <!-- Bootstrap core JavaScript-->
  <script src="vendor/jquery/jquery.min.js"></script>
@@ -28,4 +14,19 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  
+  <!-- Scroll to Top Button-->
+ <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Ay-SOFT  2019</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+

@@ -5,8 +5,10 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+RewriteRule ^istatistik$                      ./index.php?istatistik=ok
 RewriteRule ^json$                            ./src/json.php
 RewriteRule ^aktar$                           ./report/import_excel.php
+RewriteRule ^adresekle$                        ./report/adres_exel.php
 RewriteRule ^doctor$                          ./src/components/doctor_add.php
 RewriteRule ^adres$                           ./src/components/adres_add.php
 RewriteRule ^write/([a-z0-9_-]+)$             ./report/word_out.php?write=$1

@@ -11,8 +11,9 @@ $site_name = "localhost";
         $doctor_variable = $mquery->bring_doctor ( $_SESSION["url"] );
         $result = $doctor_variable[0];
         if($result["doctor_old_place"] != 0 ){
-            $res_adres = $mquery->bring_adres ($result["doctor_old_place"])[0];
-            $result["adres"] = $res_adres["address"]["adres"];
+            $res_adres = $mquery->bring_adres ($result["doctor_old_place"]);
+
+            $result["adres"] =((isset($res_adres) ? $res_adres : false) != false ) ?  $res_adres[0]["address"]["adres"] : "-";
         }
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
         exit;

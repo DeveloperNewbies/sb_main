@@ -9,13 +9,13 @@
 
 <div class="container">
 	<form id="fileUploadForm" 
-    action="/aktar"
+    action="/adresekle"
       enctype="multipart/form-data" method="post">
     <fieldset>
         <div class="form-horizontal">
             <div class="form-group">
                 <div class="row">
-                <label class="control-label col-md-2 text-right" for="filename"><span> Doktorlar dosyasını ekleyiniz </span></label>
+                <label class="control-label col-md-2 text-right" for="filename"><span> Adres dosyasını ekleyiniz </span></label>
                 <div class="col-md-10">
                     <div class="input-group">
                         <input type="file" id="uploadedFile" name="item-image-" class="form-control form-control-sm" >
@@ -34,7 +34,6 @@
 
 </body>
 </html>
-
 
 <?php
 /**
@@ -75,7 +74,6 @@ if(isset($_POST['submit']))
             $img_counter++;
         }
 
-
         
 // including library to the code
 require_once ('excel/Classes/PHPExcel/IOFactory.php');
@@ -98,27 +96,7 @@ $xls->setActiveSheetIndex(0);
 $sheet = $xls->getActiveSheet();
 // getHighestRow - the method returning the highest row in a worksheet;
 
-$dr_val = array(
-        /*
-         * array(
-         *
-         *
-         *      <th>Sıra NO</th>
-                <th>Bulunduğu Bent</th>
-                <th>ÖNCEKİ SÖZ.TARİHİ</th>
-                <th>T.C.</th>
-                <th>ADI SOYADI</th>
-                <th>DURUMU</th>
-                <th>ÜNVANI</th>
-                <th>HİZMET PUANI</th>
-                <th>İLÇE SAĞLIK MÜDÜRLÜĞÜ/TSM ADI</th>
-                <th>ASM ADI</th>
-                <th>BİRİM KODU</th>
-                <th>KADRO YERİ</th>
-                 *
-         * )
-         * */
-);
+$dr_val = array();
 
 for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
     if($sheet->getCellByColumnAndRow(0, $i)->getValue() == "")
@@ -134,53 +112,19 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
     
 }
 
-        $query = new Query();
+$query = new Query();
 
-        foreach ($dr_val as $item){ 
-           
+ foreach ($dr_val as $item){ 
+    $adres_var = array(
+        "adres"=>(isset($item[2])) ? $item[2] : "-",
+        "asm"=>(isset($item[2])) ? $item[2] : "-",
+        "tsm"=>(isset($item[1])) ? $item[1] : "-",
+        "birim_code"=>(isset($item[3])) ? $item[3] : "-",
+        "kadro"=>(isset($item[12])) ? $item[12] : "-"
+    );
 
-            $hizmet_puan = $item[4] ;
-
-            $all_doc = $query->all_doctor ();
-
-            if(count ($all_doc) == 0 )
-                $must = 1;
-            else
-
-            $must = $all_doc[count ($all_doc)-1]["must"]+1;
-
-            if($item[8] != "-"){
-                $adres_var = array(
-                    "adres"=>(isset($item[9])) ? $item[9] : "-",
-                    "asm"=>(isset($item[9])) ? $item[9] : "-",
-                    "tsm"=>(isset($item[8])) ? $item[8] : "-",
-                    "birim_code"=>(isset($item[11])) ? $item[11] : "-",
-                    "kadro"=>(isset($item[12])) ? $item[12] : "-"
-                );
-
-                $adres_id = $query->create_adres($adres_var , $must);
-                
-            }
-
-            $var = array (
-                "name"=>(isset($item[3])) ? $item[3] : "-",
-                "started_date"=>"",
-                "tc"=>(isset($item[2])) ? $item[2] : "-",
-                "brans"=>(isset($item[5])) ? $item[5] : "-",
-                "status"=>"-",
-                "ahb"=>"",
-                "sicil"=>(isset($item[1])) ? $item[1] : "-",
-                "contrat_date"=>(isset($item[7])) ? $item[7] : "-",
-                "bend"=>(isset($item[6])) ? $item[6] : "-",
-                "before_address"=>(isset($adres_id)) ? $adres_id : "-"
-            );
-            
-
-          
-            $query->create_doctor($var ,$hizmet_puan , (isset( $adres_id)) ?  $adres_id : 0 , $must);
-            unset($adres_id );
-        }
-        
+     $query->create_adres($adres_var , "0");
+ }
 }
 
 

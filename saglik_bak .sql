@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 21 Şub 2019, 21:14:22
+-- Üretim Zamanı: 22 Şub 2019, 00:40:03
 -- Sunucu sürümü: 10.1.36-MariaDB
 -- PHP Sürümü: 7.2.11
 
@@ -91,7 +91,7 @@ ALTER TABLE `log_save`
 -- Tablo için AUTO_INCREMENT değeri `log_save`
 --
 ALTER TABLE `log_save`
-  MODIFY `count` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `count` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=265;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
