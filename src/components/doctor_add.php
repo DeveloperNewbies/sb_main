@@ -70,7 +70,7 @@ if(isset($_POST["add_ok"]))
             "started_date"=>"",
             "tc"=>$tc,
             "brans"=>$caption,
-            "status"=>$durum,
+            "kadro_yer"=>$durum,
             "ahb"=>"",
             "sicil"=>"",
             "contrat_date"=>$before_date,
@@ -93,7 +93,7 @@ if(isset($_POST["add_ok"]))
         $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
         $adres_id = $query->create_adres($adres_var , $must);
-        $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
+        $ad_con = $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
     }else{
         echo "Geçerli Bilgiler giriniz ! ";
     }
@@ -126,7 +126,12 @@ if(isset($_POST["add_ok"]))
     </style>
 </head>
 <div class="container">
-    <form class="form-horizontal" method="post" action="doctor" >
+        <?php if(isset($ad_con) && $ad_con == true){ ?>
+            <div class="alert alert-success">
+        <strong><?=$username?></strong> Doktor eklendi.
+        </div>
+        <?php } ?>
+    <form class="form-horizontal" method="post" action="./doctor" >
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -185,7 +190,7 @@ if(isset($_POST["add_ok"]))
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label >Durumu</label>
+                <label >Kadro Yeri</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -194,7 +199,7 @@ if(isset($_POST["add_ok"]))
 
                         </div>
                         <input type="text" name="status" class="form-control"
-                               placeholder="Durumu" required>
+                               placeholder="Kadro Yeri" required>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@
     </div>
 
     <!-- Content Row -->
-    <div class="row">
+    <div class="row" id="refresh-card">
 
       <!-- Earnings (Monthly) Card Example -->
       <div class="col-xl-2 col-md-1 mb-4" onclick="refresh_doctor('0')" >
@@ -38,7 +38,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div  class="text-sm font-weight-bold text-success text-uppercase mb-4">Pas Geçenler</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$doctor_select_num["1"]?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$doctor_select_num["2"]?></div>
               </div>
               
             </div>
@@ -86,7 +86,7 @@
        
           <!-- Card Header - Dropdown -->
           <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between" id="doctor_table">
-          <?php if(isset($doctor_variable)){ ?>
+          <?php if($doctor_variable != false){ ?>
             <h6 class="m-0 font-weight-bold text-primary" id="doctor_card_title"><?= $doctor_variable[0]["must"] ."-(". $doctor_variable[0]["doctor_var"]["brans"].") ". $doctor_variable[0]["doctor_var"]["name"] ?></h6>
          
             <div class="dropdown no-arrow">
@@ -95,7 +95,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <div class="dropdown-header">Doktor İşlemleri</div>
-                <a class="dropdown-item" href="/write/<?=$doctor_variable[0]["doctor_id"]?>">Çıktı Al</a>
+                <a class="dropdown-item" href="./write/<?=$doctor_variable[0]["doctor_id"]?>">Çıktı Al</a>
                
               </div>
             </div>
@@ -105,7 +105,7 @@
               <div class="card-body ">
               <div id="tc"> T.C: <?= $doctor_variable[0]["doctor_var"]["tc"] ?>    </div>
               <div id="hizmet_puan">Hizmet Puanı: <?= $doctor_variable[0]["hizmet_puan"] ?></div>
-              <div id="dc_adres">Seçili Adres: <?php echo (isset($old_adres)) ?  $old_adres[0]["address"]["adres"] : "-" ; ?></div>
+              <div id="dc_adres">Seçili Adres: <?php echo ((isset($old_adres) ? $old_adres : false) != false ) ?  $old_adres[0]["address"]["adres"] : "-" ; ?></div>
               <?php }else{ ?>
                 <div>Doktor Seçiniz ! </div>
               <?php } ?>
@@ -141,16 +141,22 @@
             foreach ($all_doctor as $value) {
                 $name = $value["doctor_var"]["name"];
                 $selection = $value["doctor_selection"];
-                if(isset($value["doctor_old_place"]))
-                    $doctor_old_adres = $mquery->bring_adres ($value["doctor_old_place"]);
-                else
+                if(isset($value["doctor_old_place"])){
+                  $doctor_old_adres = $mquery->bring_adres ($value["doctor_old_place"]);
+                  if($doctor_old_adres != false){
+                    $doctor_old_adres = $doctor_old_adres[0]["address"]["adres"];
+                  }else{
+                    $doctor_old_adres = "-";
+                  }
+                  
+                } else
                     $doctor_old_adres = "-";
                     if ( $_SESSION["secim"] == $selection ) {
                         $style = "background-color:dodgerblue ; color: white;";
                ?>
 
                 <div class="text-sm hoverDiv" id="<?=$value["doctor_id"]?>" onclick="doctor_select('<?=$value['doctor_id']?>')" style="<?php echo ( $value['doctor_id'] == $url ) ? $style : ''; ?>">
-                <?= $value["must"] ?> - <?= $name ?>   <span class="float-right"><?=$doctor_old_adres[0]["address"]["adres"]?></span> 
+                <?= $value["must"] ?> - <?= $name ?>   <span class="float-right"><?=$doctor_old_adres?></span> 
                 </div>
     
                 <?php
@@ -192,6 +198,7 @@
 
 
 <?php require_once("src/footer.php"); ?>
+
 </div>
 
 <script>
@@ -199,11 +206,17 @@
         $.get("index.php", {"secim": url }, function (returnData, status) {
             $('#doctor_body').replaceWith($(returnData).find("#doctor_body"));
         });
+        $.get("index.php", {"": "" }, function (returnData, status) {
+            $('#refresh-card').replaceWith($(returnData).find("#refresh-card"));
+        });
     }
 
     function doctor_secim(durum) {
         $.get("index.php", {"durum": durum }, function (returnData, status) {
             $('#doctor_body').replaceWith($(returnData).find("#doctor_body"));
+        });
+        $.get("index.php", {"": "" }, function (returnData, status) {
+            $('#refresh-card').replaceWith($(returnData).find("#refresh-card"));
         });
     }
 
@@ -223,7 +236,10 @@
                      ).then(doctor_select("tuna")).then(
                       $.get("index.php", {"": "" }, function (returnData, status) {
                         $('#adres_body').replaceWith($(returnData).find("#adres_body"));
-                    }) );
+                    }) ).then(
+                      $.get("index.php", {"": "" }, function (returnData, status) {
+                        $('#refresh-card').replaceWith($(returnData).find("#refresh-card"));
+                      }));
                 } else {
                     swal("Adres seçilmedi !");
                 }
@@ -231,16 +247,16 @@
         );
        }
 
-
+       
 ////////////////////
     function doctor_select(num){
       if(num == "tuna"){
-        $.get("/json", {"":"" }, function (returnData, status) {
+        $.get("./json", {"":"" }, function (returnData, status) {
           let json = $.parseJSON(returnData);
            doctor_table(json,num);
            });
       }else{
-        $.get("/json", {"url": num }, function (returnData, status) {
+        $.get("./json", {"url": num }, function (returnData, status) {
           let json = $.parseJSON(returnData);
            doctor_table(json,num);
            });
@@ -251,7 +267,8 @@
       let doctor_table_title = json["must"]+"-"+"("+json["doctor_var"]["brans"]+") "+json["doctor_var"]["name"]; 
       let tc = "T.C: "+ json["doctor_var"]["tc"];
       let hizmet = "Hizmet Puanı:"+json["hizmet_puan"];
-      let adres = "Seçili Adres: "+json["adres"];
+      let db_ad =  (json["adres"] === undefined) ? "-" : json["adres"];
+      let adres = "Seçili Adres: "+ db_ad;
         $("#tc").html(tc);
         $("#doctor_card_title").html(doctor_table_title);
         $("#hizmet_puan").html(hizmet);

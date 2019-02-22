@@ -29,6 +29,15 @@ if(isset($_GET["write"])){
             $dr_tc = $doctor[0]["doctor_var"]["tc"];
             $dr_isim = $doctor[0]["doctor_var"]["name"];
             $dr_brans = $doctor[0]["doctor_var"]["brans"];
+            $dr_started = ($doctor[0]["doctor_var"]["started_date"] != "") ? $doctor[0]["doctor_var"]["started_date"] : "-";
+
+            if($adres[0]['address']['adres'] != "")
+            {
+                $dr_oldplace = $adres[0]['address']['adres'];
+            }else
+                {
+                    $dr_oldplace = "-";
+                }
             $dr_puan = $doctor[0]["hizmet_puan"];
             $dr_adres = $adres[0]["address"]["adres"];
             //dr_no doktorun db deki sırası
@@ -44,23 +53,41 @@ if(isset($_GET["write"])){
             $date_before = date('01-m-Y');
             $date_after = date("31-m-Y", strtotime('+2 years'));
 
-            $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
-            $templateProcessor->setValue('op-no', "".$op_number);
-            $templateProcessor->setValue('dr-tc', "".$dr_tc);
-            $templateProcessor->setValue('dr-isim', "".$dr_isim);
-            $templateProcessor->setValue('dr-brans', "".$dr_brans);
-            $templateProcessor->setValue('dr-puan', "".$dr_puan);
-            $templateProcessor->setValue('dr-no', "".$dr_no);
-            $templateProcessor->setValue('dr-adres', "".$dr_adres);
-            $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
-            $templateProcessor->setValue('date-before', $date_before);
-            $templateProcessor->setValue('date-after', $date_after);
-            $templateProcessor->setValue('date-now', date("d-m-Y"));
+            if($dr_started == "-")
+            {
+                $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
+                $templateProcessor->setValue('op-no', "".$op_number);
+                $templateProcessor->setValue('dr-tc', "".$dr_tc);
+                $templateProcessor->setValue('dr-isim', "".$dr_isim);
+                $templateProcessor->setValue('dr-brans', "".$dr_brans);
+                $templateProcessor->setValue('dr-puan', "".$dr_puan);
+                $templateProcessor->setValue('dr-no', "".$dr_no);
+                $templateProcessor->setValue('dr-adres', "".$dr_adres);
+                $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
+                $templateProcessor->setValue('date-before', $date_before);
+                $templateProcessor->setValue('date-after', $date_after);
+                $templateProcessor->setValue('date-now', date("d-m-Y"));
 
 
-            header('Content-Type: application/octet-stream');
-            header("Content-Disposition: attachment; filename=sozlesme.docx");
-            $templateProcessor->saveAs('php://output');
+                header('Content-Type: application/octet-stream');
+                header("Content-Disposition: attachment; filename=sozlesme.docx");
+                $templateProcessor->saveAs('php://output');
+            }else
+                {
+                    $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('zeyilname.docx');
+
+                    $templateProcessor->setValue('dr-isim', "".$dr_isim);
+                    $templateProcessor->setValue('dr-started', "".$dr_started);
+                    $templateProcessor->setValue('dr-oldplace', "".$dr_oldplace);
+                    $templateProcessor->setValue('dr-adres', "".$dr_adres);
+                    $templateProcessor->setValue('date-now', date("d-m-Y"));
+
+                    header('Content-Type: application/octet-stream');
+                    header("Content-Disposition: attachment; filename=zeyilname.docx");
+                    $templateProcessor->saveAs('php://output');
+                }
+
+
         }
 
     }

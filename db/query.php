@@ -81,23 +81,23 @@
 
       public function doctor_var_num(){
           $data = array(
-              "0"=>0,
-              "1"=>0,
-              "2"=>0,
-              "3"=>0
+              "0"=>0,//yeni kayıt
+              "1"=>0,//adres seçerse
+              "2"=>0,//pas
+              "3"=>0//gelmedi
              );
 
              $res_data = $this->all_doctor () ; 
         
              if($res_data != false){
                  foreach ($res_data as $value) {
-                     if($value["doctor_selection"] == 0 )
+                     if($value["doctor_selection"] == "0" )
                        $data["0"] = $data["0"]+1;
-                       if($value["doctor_selection"] == 1 )
+                       if($value["doctor_selection"] == "1" )
                        $data["1"] = $data["1"]+1;
-                       if($value["doctor_selection"] == 2 )
+                       if($value["doctor_selection"] == "2" )
                        $data["2"] = $data["2"]+1;
-                       if($value["doctor_selection"] == 3 )
+                       if($value["doctor_selection"] == "3" )
                        $data["3"] = $data["3"]+1;
                  }
              }
