@@ -9,7 +9,7 @@
 
 <div class="container">
 	<form id="fileUploadForm" 
-    action="/aktar"
+    action="./aktar"
       enctype="multipart/form-data" method="post">
     <fieldset>
         <div class="form-horizontal">
