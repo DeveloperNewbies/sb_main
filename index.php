@@ -23,11 +23,11 @@ $url = (isset($_SESSION["url"])) ? $_SESSION["url"] : 1 ;
         
 
         if(isset($_GET["secim"])){
-    $_SESSION["secim"] = trim($_GET["secim"]);
-    } else{
-        if(!isset($_SESSION["secim"]))
-            $_SESSION["secim"] = 0;
-    }
+            $_SESSION["secim"] = trim($_GET["secim"]);
+        } else{
+            if(!isset($_SESSION["secim"]))
+                $_SESSION["secim"] = 0;
+        }
 
 $all_doctor = $mquery->all_doctor ();
 $all_adres = $mquery->all_adres ();

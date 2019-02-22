@@ -31,7 +31,8 @@ if(isset($_GET["write"])){
             $dr_tc = $doctor[0]["doctor_var"]["tc"];
             $dr_isim = $doctor[0]["doctor_var"]["name"];
             $dr_brans = $doctor[0]["doctor_var"]["brans"];
-            $dr_started = ($doctor[0]["doctor_var"]["contrat_date"] != "") ? $doctor[0]["doctor_var"]["contrat_date"] : "-";
+
+            $dr_started = (isset($doctor[0]["doctor_var"]["contrat_date"])) ? $doctor[0]["doctor_var"]["contrat_date"] : "-";
             $dr_puan = $doctor[0]["hizmet_puan"];
             $dr_adres = $adres[0]["address"]["adres"];
             //Doktorun Önceki Sözleşmesideki Adres ID si
@@ -94,6 +95,16 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-before', $date_before);
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
+
+                //önceki adresi ve tarihi güncelle
+
+                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+                $doctor[0]["doctor_var"]["contrat_date"] = date("d-m-Y") ;
+                //önceki adresi 
+                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
+                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
+
+
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=sozlesme.docx");
                 $templateProcessor->saveAs('php://output');
@@ -112,6 +123,17 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-before', $date_before);
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
+
+
+                   //önceki adresi ve tarihi güncelle
+
+                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+                $doctor[0]["doctor_var"]["contrat_date"] =date("d-m-Y");
+                //önceki adresi 
+                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
+                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
+
+
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=sozlesme.docx");
                 $templateProcessor->saveAs('php://output');
@@ -124,14 +146,24 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('dr-oldplace', "".$before_adres);
                 $templateProcessor->setValue('dr-adres', "".$dr_adres);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
+
+
+
+              //adresi güncelle tarih kalsın 
+
+                //önceki adresi 
+                $doctor[0]["doctor_var"]["before_address"] = $adres[0]["id"];
+                 $mquery->update_doctor($url , "doctor_var" , $doctor[0]["doctor_var"]);
+
+
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=zeyilname.docx");
                 $templateProcessor->saveAs('php://output');
             }
         }else
-            {
-                echo "Adres Seçimi Yapılmadı";
-            }
+        {
+            echo "Adres Seçimi Yapılmadı";
+        }
     }
 }else{
     echo "Hata";
