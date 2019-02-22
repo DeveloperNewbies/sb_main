@@ -24,8 +24,12 @@ if(isset($_GET["write"])){
 
     if($doctor !== false){
 
+        //$doctor[0]["doctor_var"]["address"] önceki adres değişkeni
+        //$doctor[0]["doctor_selection"] == 0 ise doktor hiç işlem yapmamış demek
+
      if($doctor[0]["doctor_var"]["address"] != "-" ){
          //önceki adresi yok 
+         //bu kısımda fakrlı çıktı
 
          $adres = $mquery->bring_adres ($doctor[0]["doctor_old_place"]);
          if($adres !== false){
@@ -70,9 +74,8 @@ if(isset($_GET["write"])){
 
          
      }else{
-         //daha önceden bir adresi vardı ve bu kısımda $doctor[0]["doctor_var"]["address"] bu değişkenle ilk adresi alınır
+         //daha önceden bir adresi vardı ve bu kısımda  ilk adresi alınır
          //$before_adres =  $mquery->bring_adres ($doctor[0]["doctor_var"]["address"]);
-         //eğer doktor adres seçimi yapmamışsa  if($doctor[0]["doctor_selection"] == 0) bu koşul altında çıktı ver 
 
          $adres = $mquery->bring_adres ($doctor[0]["doctor_old_place"]);
          if($adres !== false){
