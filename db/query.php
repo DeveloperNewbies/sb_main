@@ -158,15 +158,24 @@
       public function update_doctor ($doctor_num , $where_update , $value)
       {
           if($where_update == "doctor_var")
+          {
               $value = json_encode ($value,JSON_UNESCAPED_UNICODE);
-
+              try {
+                  $sorgu = $this->conn->exec ( "UPDATE doctor SET {$where_update} = '".$value."' WHERE doctor_id = {$doctor_num}" );
+                  $this->log_save ($doctor_num." id li doktorun ".$where_update." sütunu güncellendi");
+                  return true;
+              } catch (PDOException $e) {
+                  return $e;
+              }
+          }
           try {
-              $sorgu = $this->conn->exec ( "UPDATE doctor SET {$where_update} = {$value} WHERE doctor_id='$doctor_num'" );
+              $sorgu = $this->conn->exec ( "UPDATE doctor SET {$where_update} = ".$value." WHERE doctor_id = {$doctor_num}" );
               $this->log_save ($doctor_num." id li doktorun ".$where_update." sütunu güncellendi");
               return true;
           } catch (PDOException $e) {
               return $e;
           }
+
       }
 
 

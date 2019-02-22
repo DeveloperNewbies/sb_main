@@ -48,7 +48,8 @@ if(isset($_GET["write"])){
             {
                 //$before_adres Doktorun Eğer Daha Önceden Bir Adresi Var İse Yani Sözleşmesi var ise O Sözleşme Adresini Alır.
                 $before_adres =  ($mquery->bring_adres ($dr_before_id) != "" ) ? $mquery->bring_adres ($dr_before_id) : "-";
-                $before_adres = $before_adres[0]['address']['adres'];
+
+                $before_adres = ($before_adres == "-" ) ? "-" : $before_adres[0]['address']['adres'];
             }else
                 {
                     //Yok İse - koyar Sözleşmedede Bu Yansır.
@@ -90,10 +91,10 @@ if(isset($_GET["write"])){
                  
                 $islem["contrat_date"] = date("d-m-Y") ;
                 //önceki adresi 
-                $islem["before_address"] = $dr_adres[0]["id"];
-             $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+                $islem["before_address"] = $doctor[0]['doctor_old_place'];
 
-         
+                $result = $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
                 $templateProcessor->setValue('op-no', "".$op_number);
                 $templateProcessor->setValue('dr-tc', "".$dr_tc);
@@ -115,12 +116,12 @@ if(isset($_GET["write"])){
             elseif ($dr_contract_heap > 23)
             {
                  //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
-                 $islem = $doctor[0]["doctor_var"];
+                $islem["before_address"] = $doctor[0]['doctor_old_place'];
                  
-                 $islem["contrat_date"] = date("d-m-Y") ;
-                 //önceki adresi 
-                 $islem["before_address"] = $dr_adres[0]["id"];
-              $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+                $islem["contrat_date"] = date("d-m-Y") ;
+                 //önceki adresi
+                $islem["before_address"] = $dr_adres[0]["id"];
+                $mquery->update_doctor($dr_no , "doctor_var" , $islem);
 
 
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
@@ -143,13 +144,13 @@ if(isset($_GET["write"])){
             else
             {
                 
-            //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
-            $islem = $doctor[0]["doctor_var"];
-                 
-            //önceki adresi 
-            $islem["before_address"] = $dr_adres[0]["id"];
-         $mquery->update_doctor($dr_no , "doctor_var" , $islem);
-               
+                //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
+                $islem = $doctor[0]["doctor_var"];
+
+                //önceki adresi
+                $islem["before_address"] = $doctor[0]['doctor_old_place'];
+                $mquery->update_doctor($dr_no , "doctor_var" , $islem);
+
 
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('zeyilname.docx');
                 $templateProcessor->setValue('dr-isim', "".$dr_isim);
