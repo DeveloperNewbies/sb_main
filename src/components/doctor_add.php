@@ -6,11 +6,19 @@
  * Time: 15:51
  */
 
+
 $durum = true ;
 if(isset($_POST["add_ok"]))
 {
     require_once ("../../db/query.php");
     $query = new Query();
+      //donem ekleme
+      $all_donem = $query->all_donem ();
+      if(count ($all_donem) == 0 ){
+          $donem_must = 1;
+      }else{
+          $donem_must = $all_donem[count ($all_donem)-1]["id"];
+      }
 
     if(is_numeric($_POST["tc"]))
     $tc =(Strlen($_POST["tc"]) == 11) ? $_POST["tc"] : false  ;
@@ -95,7 +103,7 @@ if(isset($_POST["add_ok"]))
             "before_address"=>$adres_id
         );
 
-        $ad_con = $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must);
+        $ad_con = $query->create_doctor($var ,$hizmet_puan ,  $adres_id , $must , $donem_must);
     }else{
         echo "Geçerli Bilgiler giriniz ! ";
     }
