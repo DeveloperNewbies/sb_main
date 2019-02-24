@@ -8,7 +8,7 @@
 <body>
 
 <div class="container">
-	<form id="fileUploadForm" 
+	<form id="fileUploadForm"
     action="./adresekle"
       enctype="multipart/form-data" method="post">
     <fieldset>
@@ -25,9 +25,9 @@
                     </div>
                 </div>
                 </div>
-            </div>                        
+            </div>
         </div>
-    </fieldset>    
+    </fieldset>
 </form>
 </div>
 
@@ -73,10 +73,12 @@ if(isset($_POST['submit']))
             $img_counter++;
         }
 
-        
+
 // including library to the code
 require_once ('excel/Classes/PHPExcel/IOFactory.php');
 require_once("../db/query.php");
+
+
 
 $inputFileName = 'uploads/example.xlsx';
 
@@ -108,12 +110,20 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
         // we add data to the DB using sql query.
         array_push($dr_val[$i-2], ($value=="")?"-":$value);
     }
-    
+
 }
 
 $query = new Query();
 
- foreach ($dr_val as $item){ 
+    //donem ekleme
+    $all_donem = $query->all_donem ();
+    if(count ($all_donem) == 0 ){
+        $donem_must = 1;
+    }else{
+        $donem_must = $all_donem[count ($all_donem)-1]["id"];
+    }
+
+ foreach ($dr_val as $item){
     $adres_var = array(
         "adres"=>(isset($item[2])) ? $item[2] : "-",
         "asm"=>(isset($item[2])) ? $item[2] : "-",
@@ -122,11 +132,14 @@ $query = new Query();
         "kadro"=>(isset($item[12])) ? $item[12] : "-"
     );
 
-     $query->create_adres($adres_var , "0");
+     $query->create_adres($adres_var , "0" , $donem_must);
  }
+
+
+            header("location: ./");
 }
 
 
 
-  
+
     ?>

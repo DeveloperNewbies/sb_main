@@ -6,9 +6,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
 <body>
-
+<?php if(!isset($_POST['submit']))
+  { ?>
 <div class="container">
-	<form id="fileUploadForm" 
+	<form id="fileUploadForm"
     action="./aktar"
       enctype="multipart/form-data" method="post">
     <fieldset>
@@ -25,7 +26,7 @@
                     </div>
                 </div>
                 </div>
-            </div>                        
+            </div>
         </div>
     </fieldset>
 </form>
@@ -37,6 +38,8 @@
 
 
 <?php
+
+}
 /**
  * Created by PhpStorm.
  * User: Alp
@@ -44,8 +47,23 @@
  * Time: 02:25
  */
 
+ require_once("../db/query.php");
+ $query = new Query();
+
+
+
 if(isset($_POST['submit']))
 {
+      //donem ekleme
+      $all_donem = $query->all_donem ();
+      if(count ($all_donem) == 0 ){
+          $donem_must = 1;
+      }else{
+          $donem_must = $all_donem[count ($all_donem)-1]["id"]+1;
+      }
+
+      $query->create_donem($donem_must);
+
     $file;
     $expensions= array("xls","xlsx");
     $img_counter = 0;
@@ -66,7 +84,6 @@ if(isset($_POST['submit']))
             }
 
             if (empty($errors) == true) {
-                echo "Yükleme Başarılı";
                 $file = $file_tmp;
                 move_uploaded_file($file_tmp, "uploads/example.xlsx");
             }
@@ -76,10 +93,9 @@ if(isset($_POST['submit']))
         }
 
 
-        
+
 // including library to the code
 require_once ('excel/Classes/PHPExcel/IOFactory.php');
-require_once("../db/query.php");
 
 $inputFileName = 'uploads/example.xlsx';
 
@@ -134,23 +150,23 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
         }
         array_push($dr_val[$i-2], ($value=="")?"-":$value);
     }
-    
+
 }
+        $doctor_count_print = 0 ;
 
-        $query = new Query();
-
-        foreach ($dr_val as $item){ 
-           
+        foreach ($dr_val as $item){
+            $doctor_count_print++;
 
             $hizmet_puan = $item[4] ;
 
             $all_doc = $query->all_doctor ();
 
-            if(count ($all_doc) == 0 )
+            if(count ($all_doc) == 0 ){
                 $must = 1;
-            else
+            }else{
+                $must = $all_doc[count ($all_doc)-1]["must"]+1;
+            }
 
-            $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
             if($item[8] != "-"){
                 $adres_var = array(
@@ -161,8 +177,8 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
                     "kadro"=>(isset($item[12])) ? $item[12] : "-"
                 );
 
-                $adres_id = $query->create_adres($adres_var , $must);
-                
+                $adres_id = $query->create_adres($adres_var , $must , $donem_must);
+
             }
 
             $var = array (
@@ -177,13 +193,69 @@ for ($i = 2; $i <= $sheet->getHighestRow(); $i++) {
                 "bend"=>(isset($item[6])) ? $item[6] : "-",
                 "before_address"=>(isset($adres_id)) ? $adres_id : "-"
             );
-            
 
-          
-            $query->create_doctor($var ,$hizmet_puan , (isset( $adres_id)) ?  $adres_id : 0 , $must);
+
+
+            $query->create_doctor($var ,$hizmet_puan , (isset( $adres_id)) ?  $adres_id : 0 , $must ,$donem_must);
             unset($adres_id );
         }
-        
+?>
+
+        <form action="" method="post">
+  <div class="form-group">
+  <label for="exampleInputEmail1"><?php echo  $donem_must. " adlı doneme " . $doctor_count_print ." adet doktor eklendi";?></label>
+    <label for="exampleInputEmail1"><?php echo  $donem_must. " adlı donem için " ; ?> Komisyon üyelerini giriniz</label>
+    <input type="text" name="name_1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Komisyon üyesi">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Diğer komisyon üyesi</label>
+    <input type="text" name="name_2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Komisyon üyesi">
+  </div>
+
+  <label for="exampleInputPassword1">Diğer komisyon üyesi</label>
+  <input type="text" name="name_3" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Komisyon üyesi">
+
+  <button type="submit" class="btn btn-primary " name="add_komisyon" style="margin-top:10px;">Ekle</button>
+</form>
+
+
+<?php
 }
-  
+$durum = true ;
+if(isset($_POST["add_komisyon"])){
+        if(isset($_POST["name_1"]))
+        $name_1 = $_POST["name_1"];
+    else
+        $durum = false ;
+
+        if(isset($_POST["name_2"]))
+        $name_2 = $_POST["name_2"];
+    else
+        $durum = false ;
+
+        if(isset($_POST["name_3"]))
+        $name_3 = $_POST["name_3"];
+    else
+        $durum = false ;
+
+
+        //donem ekleme
+      $all_donem = $query->all_donem ();
+      if(count ($all_donem) == 0 ){
+          $donem_must = 1;
+      }else{
+          $donem_must = $all_donem[count ($all_donem)-1]["id"];
+      }
+
+        $query->create_komisyon_üye($name_1, $donem_must);
+        $query->create_komisyon_üye($name_2, $donem_must);
+        $query->create_komisyon_üye($name_3, $donem_must);
+
+        if($durum != false){
+
+            header("location: ./");
+        }else{
+            echo "Hatalı bilgiler girdiniz " ;
+        }
+}
     ?>

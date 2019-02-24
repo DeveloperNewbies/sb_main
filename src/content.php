@@ -3,14 +3,14 @@
 <!-- Main Content -->
 <div id="content" id="body_body">
 
-  
+
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mt-3 text-gray-800">Hekim Seçme-Yerleştirme Sistemi </h1>
-     
+      <h1 class="h3 mt-3 text-gray-800">Hekim Seçme-Yerleştirme Sistemi  (<?=$donem_must?> Dönemi) </h1>
+
     </div>
 
     <!-- Content Row -->
@@ -25,7 +25,7 @@
                 <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Sırada Bekleyenler</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$doctor_select_num["0"]?></div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
                 <div  class="text-sm font-weight-bold text-success text-uppercase mb-4">Pas Geçenler</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$doctor_select_num["2"]?></div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -57,10 +57,10 @@
                   <div class="col-auto">
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?=$doctor_select_num["3"]?></div>
                   </div>
-                  
+
                 </div>
               </div>
-             
+
             </div>
           </div>
         </div>
@@ -75,33 +75,28 @@
                 <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">Tercih Yapanlar</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$doctor_select_num["1"]?></div>
               </div>
-              
+
             </div>
           </div>
         </div>
       </div>
       <div class="col-xl-4 col-lg-5">
-     
+
         <div class="card shadow mb-4">
-       
+
           <!-- Card Header - Dropdown -->
-          <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between" id="doctor_table">
-          <?php if($doctor_variable != false){ ?>
-            <h6 class="m-0 font-weight-bold text-primary" id="doctor_card_title"><?= $doctor_variable[0]["must"] ."-(". $doctor_variable[0]["doctor_var"]["brans"].") ". $doctor_variable[0]["doctor_var"]["name"] ?></h6>
-         
-            <div class="dropdown no-arrow">
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-print text-gray-400"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                <div class="dropdown-header">Doktor İşlemleri</div>
-                <a id="doctor_link" class="dropdown-item" href="./write/<?=$doctor_variable[0]["doctor_id"]?>">Çıktı Al</a>
-               
-              </div>
-            </div>
-          </div>
-          <!-- Card Body -->
-      
+           <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between" id="doctor_table">
+           <?php if($doctor_variable != false){ ?>
+             <h6 class="m-0 font-weight-bold text-primary" id="doctor_card_title"><?= $doctor_variable[0]["must"] ."-(". $doctor_variable[0]["doctor_var"]["brans"].") ". $doctor_variable[0]["doctor_var"]["name"] ?></h6>
+
+             <div class="dropdown no-arrow">
+               <a class="dropdown-toggle" href="./write/<?=$doctor_variable[0]["doctor_id"]?>"  id="doctor_link">
+                 <i class="fa fa-print text-gray-400"></i>
+               </a>
+             </div>
+           </div>
+           <!-- Card Body -->
+
               <div class="card-body ">
               <div id="tc"> T.C: <?= $doctor_variable[0]["doctor_var"]["tc"] ?>    </div>
               <div id="hizmet_puan">Hizmet Puanı: <?= $doctor_variable[0]["hizmet_puan"] ?></div>
@@ -110,15 +105,15 @@
                 <div>Doktor Seçiniz ! </div>
               <?php } ?>
               </div>
-             
+
         </div>
-     
+
       </div>
 
 
-      
+
     </div>
-    
+
     <!-- Content Row -->
 
     <div class="row">
@@ -132,7 +127,7 @@
             <div class="dropdown no-arrow">
               <button class="btn btn-warning" onclick="doctor_secim('pas')" >PAS GEÇ</button>
              <button class="btn btn-danger" onclick="doctor_secim('gelmedi')" >GELMEDİ</button>
-            
+
             </div>
           </div>
           <!-- Card Body -->
@@ -148,7 +143,7 @@
                   }else{
                     $doctor_old_adres = "-";
                   }
-                  
+
                 } else
                     $doctor_old_adres = "-";
                     if ( $_SESSION["secim"] == $selection ) {
@@ -156,9 +151,9 @@
                ?>
 
                 <div class="text-sm hoverDiv" id="<?=$value["doctor_id"]?>" onclick="doctor_select('<?=$value['doctor_id']?>')" style="<?php echo ( $value['doctor_id'] == $url ) ? $style : ''; ?>">
-                <?= $value["must"] ?> - <?= $name ?>   <span class="float-right"><?=$doctor_old_adres?></span> 
+                <?= $value["must"] ?> - <?= $name ?>   <span class="float-right"><?=$doctor_old_adres?></span>
                 </div>
-    
+
                 <?php
                  }
               }
@@ -173,14 +168,14 @@
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Adres Seçme</h6>
-           
+
           </div>
           <!-- Card Body -->
           <div class="card-body" id="adres_body">
           <?php
             $m = 1;
             foreach ($all_adres as $result){?>
-              <div class="text-lg hoverDiv" onclick="adres_select(<?=$result['id']?> , '<?=$result['address']['adres']?>' )" id ="<?=$result["id"]?>"><?=$m?>- <?=$result["address"]["adres"]?></div> 
+              <div class="text-lg hoverDiv" onclick="adres_select(<?=$result['id']?> , '<?=$result['address']['adres']?>' )" id ="<?=$result["id"]?>"><?=$m?>- <?=$result["address"]["adres"]?></div>
               <?php $m++ ; } ?>
           </div>
         </div>
@@ -188,7 +183,7 @@
     </div>
 
     <!-- Content Row -->
-  
+
 
   </div>
   <!-- /.container-fluid -->
@@ -228,7 +223,7 @@
             buttons: true,
             dangerMode: true,
             }).then((willDelete) => {
-                if (willDelete) { 
+                if (willDelete) {
                       swal("Adres seçildi", {
                         icon: "success",
                         }).then(
@@ -247,7 +242,7 @@
         );
        }
 
-       
+
 ////////////////////
     function doctor_select(num){
       if(num == "tuna"){
@@ -265,7 +260,7 @@
 
     function doctor_table(json,num){
       let brans = (json["doctor_var"]["brans"] === undefined) ? "-" : json["doctor_var"]["brans"];
-      let doctor_table_title = json["must"]+"-"+"("+brans+") "+json["doctor_var"]["name"]; 
+      let doctor_table_title = json["must"]+"-"+"("+brans+") "+json["doctor_var"]["name"];
       let tc = "T.C: "+ json["doctor_var"]["tc"];
       let hizmet = "Hizmet Puanı:"+json["hizmet_puan"];
       let db_ad =  (json["adres"] === undefined) ? "-" : json["adres"];
@@ -279,8 +274,7 @@
         $.get("index.php", {"":""}, function (returnData, status) {
               $('#doctor_body').replaceWith($(returnData).find("#doctor_body"));
           });
-    
+
         $("#doctor_link").attr("href", "write/"+json["must"]);
     }
 </script>
-

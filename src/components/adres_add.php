@@ -5,12 +5,18 @@
  * Date: 19.02.2019
  * Time: 18:23
  */
-
 $durum = true ;
 if(isset($_POST["sub"])){
 
     require_once ("../../db/query.php");
     $query = new Query();
+      //donem ekleme
+      $all_donem = $query->all_donem ();
+      if(count ($all_donem) == 0 ){
+          $donem_must = 1;
+      }else{
+          $donem_must = $all_donem[count ($all_donem)-1]["id"];
+      }
 
 
     if(isset($_POST["tsm"]))
@@ -39,7 +45,7 @@ if(isset($_POST["sub"])){
             "dhy"=>0,
             "ahb"=>$ahb
         );
-        $ad_con = $query->create_adres ($var);
+        $ad_con = $query->create_adres ($var , 0 , );
     }else echo "Hatalı Bilgiler Girdiniz ? ";
 }
 ?>
