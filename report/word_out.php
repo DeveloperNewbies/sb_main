@@ -86,13 +86,13 @@ if(isset($_GET["write"])){
 
                 //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
                 $islem = $doctor[0]["doctor_var"];
-
+                 
                 $islem["contrat_date"] = date("d-m-Y") ;
-                //önceki adresi
+                //önceki adresi 
                 $islem["before_address"] = $dr_adres[0]["id"];
              $mquery->update_doctor($dr_no , "doctor_var" , $islem);
 
-
+         
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('sozlesme.docx');
                 $templateProcessor->setValue('op-no', "".$op_number);
                 $templateProcessor->setValue('dr-tc', "".$dr_tc);
@@ -115,10 +115,10 @@ if(isset($_GET["write"])){
             {
                  //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
                  $islem = $doctor[0]["doctor_var"];
-
+                 
                  $islem["contrat_date"] = date("d-m-Y") ;
-                 //önceki adresi
-                 $islem["before_address"] = $doctor[0]['doctor_old_place'];
+                 //önceki adresi 
+                 $islem["before_address"] = $dr_adres[0]["id"];
               $mquery->update_doctor($dr_no , "doctor_var" , $islem);
 
 
@@ -141,14 +141,14 @@ if(isset($_GET["write"])){
             }//Doktorun Eski Sözleşmesi Var Ve Sözleşme Süresini Doldurmamışsa
             else
             {
-
+                
             //önceki tarihi güncelleniyor ama format ayarlı değil ayarlanmalı
             $islem = $doctor[0]["doctor_var"];
-
-            //önceki adresi
+                 
+            //önceki adresi 
             $islem["before_address"] = $dr_adres[0]["id"];
          $mquery->update_doctor($dr_no , "doctor_var" , $islem);
-
+               
 
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('zeyilname.docx');
                 $templateProcessor->setValue('dr-isim', "".$dr_isim);
