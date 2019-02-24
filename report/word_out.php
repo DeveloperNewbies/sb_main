@@ -86,6 +86,7 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('dr-no', "".$dr_no);
                 $templateProcessor->setValue('dr-adres', "-");
                 $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
+                $templateProcessor->setValue('date-now', date("d-m-Y"));
 
                 //Komisyon üyeleri Bilgileri
                 $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
@@ -113,6 +114,7 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('dr-no', "".$dr_no);
                 $templateProcessor->setValue('dr-adres', "-");
                 $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
+                $templateProcessor->setValue('date-now', date("d-m-Y"));
 
                 //Komisyon üyeleri Bilgileri
                 $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
