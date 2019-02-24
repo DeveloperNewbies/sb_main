@@ -56,18 +56,84 @@ if(isset($_GET["write"])){
                     $before_adres = "-";
                 }
 
+            //Komisyon üye Bilgileri Çekilir
+            $komisyon = array(
+                //0 Komisyon Baskanı
+                //1 Komisyon Üyesi-1
+                //2 Komisyon Üyesi-2
+                //array(
+                    //0 Komisyon Üyesi Ad Soyad
+                    //1 Komisyon Üyesi Ünvan
+                //)
+            );
+            array_push($komisyon, array("Mustafa YAVUZ", "Vali Yardımcısı V"));
+            array_push($komisyon, array("Dr.Ahmet ÖZER", "İl Sağlık Müdürü"));
+            array_push($komisyon, array("Dr.Yakup YILANCIOĞLU", "Personel ve Destek Hiz. Başkan"));
 
             if($doctor[0]["doctor_selection"] == 0)
                 $dr_tercih ="-";
             else if($doctor[0]["doctor_selection"] == 1)
                 $dr_tercih ="Adres Seçimi Yaptı";
             else if($doctor[0]["doctor_selection"] == 2)
+            {
                 $dr_tercih = "Pas Geçti";
+                $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('tutanak.docx');
+                $templateProcessor->setValue('op-no', "".$op_number);
+                $templateProcessor->setValue('dr-tc', "".$dr_tc);
+                $templateProcessor->setValue('dr-isim', "".$dr_isim);
+                $templateProcessor->setValue('dr-brans', "".$dr_brans);
+                $templateProcessor->setValue('dr-puan', "".$dr_puan);
+                $templateProcessor->setValue('dr-no', "".$dr_no);
+                $templateProcessor->setValue('dr-adres', "-");
+                $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
+
+                //Komisyon üyeleri Bilgileri
+                $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
+                $templateProcessor->setValue('k-baskan-unvan', $komisyon[0][1]);
+                $templateProcessor->setValue('k-uye-1-ad', $komisyon[1][0]);
+                $templateProcessor->setValue('k-uye-1-unvan', $komisyon[1][1]);
+                $templateProcessor->setValue('k-uye-2-ad', $komisyon[2][0]);
+                $templateProcessor->setValue('k-uye-2-unvan', $komisyon[2][1]);
+
+                header('Content-Type: application/octet-stream');
+                header("Content-Disposition: attachment; filename=tutanak.docx");
+                $templateProcessor->saveAs('php://output');
+                exit;
+            }
+
             else if($doctor[0]["doctor_selection"] == 3)
+            {
                 $dr_tercih = "Gelmedi";
+                $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('tutanak.docx');
+                $templateProcessor->setValue('op-no', "".$op_number);
+                $templateProcessor->setValue('dr-tc', "".$dr_tc);
+                $templateProcessor->setValue('dr-isim', "".$dr_isim);
+                $templateProcessor->setValue('dr-brans', "".$dr_brans);
+                $templateProcessor->setValue('dr-puan', "".$dr_puan);
+                $templateProcessor->setValue('dr-no', "".$dr_no);
+                $templateProcessor->setValue('dr-adres', "-");
+                $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
+
+                //Komisyon üyeleri Bilgileri
+                $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
+                $templateProcessor->setValue('k-baskan-unvan', $komisyon[0][1]);
+                $templateProcessor->setValue('k-uye-1-ad', $komisyon[1][0]);
+                $templateProcessor->setValue('k-uye-1-unvan', $komisyon[1][1]);
+                $templateProcessor->setValue('k-uye-2-ad', $komisyon[2][0]);
+                $templateProcessor->setValue('k-uye-2-unvan', $komisyon[2][1]);
+
+                header('Content-Type: application/octet-stream');
+                header("Content-Disposition: attachment; filename=tutanak.docx");
+                $templateProcessor->saveAs('php://output');
+                exit;
+            }
+
 
             $date_before = date('01-m-Y');
             $date_after = date("31-m-Y", strtotime('+2 years'));
+
+
+
 
             //Doktor Daha Önceden Bir Sözleşmeye Sahipse Fark Hesabı Yapılır
             if($dr_started != "-")
@@ -108,6 +174,13 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
 
+                //Komisyon üyeleri Bilgileri
+                $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
+                $templateProcessor->setValue('k-baskan-unvan', $komisyon[0][1]);
+                $templateProcessor->setValue('k-uye-1-ad', $komisyon[1][0]);
+                $templateProcessor->setValue('k-uye-1-unvan', $komisyon[1][1]);
+                $templateProcessor->setValue('k-uye-2-ad', $komisyon[2][0]);
+                $templateProcessor->setValue('k-uye-2-unvan', $komisyon[2][1]);
 
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=sozlesme.docx");
@@ -119,8 +192,8 @@ if(isset($_GET["write"])){
                 $islem["before_address"] = $doctor[0]['doctor_old_place'];
                  
                 $islem["contrat_date"] = date("d-m-Y") ;
-                 //önceki adresi
-                $islem["before_address"] = $dr_adres[0]["id"];
+                //önceki adresi
+                $islem["before_address"] = $doctor[0]['doctor_old_place'];
                 $mquery->update_doctor($dr_no , "doctor_var" , $islem);
 
 
@@ -136,7 +209,15 @@ if(isset($_GET["write"])){
                 $templateProcessor->setValue('date-before', $date_before);
                 $templateProcessor->setValue('date-after', $date_after);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
-                
+
+                //Komisyon üyeleri Bilgileri
+                $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
+                $templateProcessor->setValue('k-baskan-unvan', $komisyon[0][1]);
+                $templateProcessor->setValue('k-uye-1-ad', $komisyon[1][0]);
+                $templateProcessor->setValue('k-uye-1-unvan', $komisyon[1][1]);
+                $templateProcessor->setValue('k-uye-2-ad', $komisyon[2][0]);
+                $templateProcessor->setValue('k-uye-2-unvan', $komisyon[2][1]);
+
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=sozlesme.docx");
                 $templateProcessor->saveAs('php://output');
@@ -153,11 +234,26 @@ if(isset($_GET["write"])){
 
 
                 $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('zeyilname.docx');
+                $templateProcessor->setValue('op-no', "".$op_number);
+                $templateProcessor->setValue('dr-tc', "".$dr_tc);
                 $templateProcessor->setValue('dr-isim', "".$dr_isim);
+                $templateProcessor->setValue('dr-brans', "".$dr_brans);
+                $templateProcessor->setValue('dr-puan', "".$dr_puan);
+                $templateProcessor->setValue('dr-no', "".$dr_no);
+                $templateProcessor->setValue('dr-adres', "".$dr_adres);
+                $templateProcessor->setValue('dr-tercih', "".$dr_tercih);
                 $templateProcessor->setValue('dr-started', "".$dr_started);
                 $templateProcessor->setValue('dr-oldplace', "".$before_adres);
-                $templateProcessor->setValue('dr-adres', "".$dr_adres);
                 $templateProcessor->setValue('date-now', date("d-m-Y"));
+
+                //Komisyon üyeleri Bilgileri
+                $templateProcessor->setValue('k-baskan-ad', $komisyon[0][0]);
+                $templateProcessor->setValue('k-baskan-unvan', $komisyon[0][1]);
+                $templateProcessor->setValue('k-uye-1-ad', $komisyon[1][0]);
+                $templateProcessor->setValue('k-uye-1-unvan', $komisyon[1][1]);
+                $templateProcessor->setValue('k-uye-2-ad', $komisyon[2][0]);
+                $templateProcessor->setValue('k-uye-2-unvan', $komisyon[2][1]);
+
                 header('Content-Type: application/octet-stream');
                 header("Content-Disposition: attachment; filename=zeyilname.docx");
                 $templateProcessor->saveAs('php://output');
