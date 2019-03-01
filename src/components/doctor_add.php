@@ -88,7 +88,7 @@ if(isset($_POST["add_ok"]))
         else
         $must = $all_doc[count ($all_doc)-1]["must"]+1;
 
-        $adres_id = $query->create_adres($adres_var , $must);
+        $adres_id = $query->create_adres($adres_var , $must , $donem_must);
         $var = array (
             "name"=>$username,
             "started_date"=>"",
