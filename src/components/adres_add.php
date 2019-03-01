@@ -45,7 +45,7 @@ if(isset($_POST["sub"])){
             "dhy"=>0,
             "ahb"=>$ahb
         );
-        $ad_con = $query->create_adres ($var , 0 , );
+        $ad_con = $query->create_adres ($var , 0 , $_SESSION["gb_donem"] );
     }else echo "Hatalı Bilgiler Girdiniz ? ";
 }
 ?>
